@@ -16,6 +16,9 @@
         <Variable name="description">
             <JSONPath>$.description</JSONPath>
         </Variable>
+        <Variable name="=test">
+            <JSONPath>$.test</JSONPath>
+        </Variable>
         <Variable name="customerId">
             <JSONPath>$.customerId</JSONPath>
         </Variable>
