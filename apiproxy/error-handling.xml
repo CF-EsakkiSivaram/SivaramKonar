@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="26" name="error-handling">
+    <Basepaths>/error-handling</Basepaths>
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1722345326749</CreatedAt>
+    <CreatedBy>g.deepak@cognizant.com</CreatedBy>
+    <Description></Description>
+    <DisplayName>error-handling</DisplayName>
+    <LastModifiedAt>1726061999791</LastModifiedAt>
+    <LastModifiedBy>g.deepak@cognizant.com</LastModifiedBy>
+    <ManifestVersion>SHA-512:d8eee1633238fbe7da8ac799a44d1d9e0f418de7f6c06963573ce985518e731563ec72571a1bca8215e7330b49cdb064236714a075239819fe51b9380c03cde4:ap-northeast-1</ManifestVersion>
+    <Policies>
+        <Policy>Base64EncodePayload</Policy>
+        <Policy>Base64decodePayload</Policy>
+        <Policy>Decode-JWT-1</Policy>
+        <Policy>Raise-Fault-1</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources/>
+    <Spec></Spec>
+    <TargetServers/>
+    <TargetEndpoints/>
+</APIProxy>

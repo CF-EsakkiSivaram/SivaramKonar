@@ -14,6 +14,23 @@
             </Step>
             <Step>
                 <Name>AM-RemoveHeader-APIKey</Name>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Condition>(request.header.method = "Encode" AND request.content != "")</Condition>
+                <Name>Base64EncodePayload</Name>
+            </Step>
+            <Step>
+                <Condition>(request.header.method = "Decode" AND request.content != "")</Condition>
+                <Name>Base64decodePayload</Name>
+            </Step>
+            <Step>
+                <Name>Decode-JWT-1</Name>
+                <Condition>(request.header.method = "JWT")</Condition>
+            </Step>
+            <Step>
+                <Condition>(request.header.method == null OR request.content == "")</Condition>
+                <Name>Raise-Fault-1</Name>
             </Step>
         </Request>
         <Response/>
@@ -79,6 +96,7 @@
             <Condition>(proxy.pathsuffix MatchesPath "/0.0/get") and (request.verb = "POST")</Condition>
         </Flow>
     </Flows>
+    <Flows/>
     <PostFlow name="PostFlow">
         <Request/>
         <Response/>
@@ -115,4 +133,10 @@
         <TargetEndpoint>GetWorkItemDetails</TargetEndpoint>
         <Condition>(proxy.pathsuffix MatchesPath "/0.0/get")</Condition>
     </RouteRule>
+    <HTTPProxyConnection>
+        <BasePath>/error-handling</BasePath>
+        <VirtualHost>secure</VirtualHost>
+        <VirtualHost>default</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="noroute"/>
 </ProxyEndpoint>

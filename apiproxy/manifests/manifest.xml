@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Manifest name="manifest">
+    <Policies>
+        <VersionInfo resourceName="Base64EncodePayload" version="SHA-512:9116297f2b753fbe8f3f0e2e79e1c72900bf098cd77aac31a157b66a82d337677abd344ba07a3ebfac9a9818e6b83e42a81b933f0cd616f186a65ddc984f05e2"/>
+        <VersionInfo resourceName="Base64decodePayload" version="SHA-512:4e1dae795e5b612fbaca0568ff748fad57963299803dac82b14f0ae0834bf14cf27a4754e16c840e8ae1735ec92977874c263f6bc8f09993157dcb8da17315c1"/>
+        <VersionInfo resourceName="Decode-JWT-1" version="SHA-512:f7da02a47193b7cee9908d9b305efcf3a0ff9d49de3d9ccfc79477d45046b83cb5d165cae7ea8be26dfbb32f3e1eada66c961a5cf6cc41b4eb74e7df686a1a6d"/>
+        <VersionInfo resourceName="Raise-Fault-1" version="SHA-512:ac47aa702e12e2f8e2e4578ae64839197317a7fc73fc59f51d1184c93bf630eb97494278a89c7b0d77bf3c9b5bb1ae7d51bc8f605837a3ae7e9f8369da365cc9"/>
+    </Policies>
+    <ProxyEndpoints>
+        <VersionInfo resourceName="default" version="SHA-512:3d6c9d3023ff00cd840967a2dec70b03f2bbe932eebf8a7f1c34f3609caf253f8f67a91855874dd1757f003d6b994fba0e33d95e5fa4258fb5ef8e7157ff118b"/>
+    </ProxyEndpoints>
+    <Resources/>
+    <SharedFlows/>
+    <TargetEndpoints/>
+</Manifest>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="Base64decodePayload">
+    <DisplayName>Base64decodePayload</DisplayName>
+    <Properties/>
+    <AssignVariable>
+        <Name>decoded</Name>
+        <Template>{decodeBase64(request.content)}</Template>
+    </AssignVariable>
+    <Set>
+        <Payload contentType="application/json">
+            {
+            "decodedvalue":"{decoded}"
+            }
+         </Payload>
+    </Set>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>
