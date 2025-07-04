@@ -1,0 +1,424 @@
+openapi: 3.0.0
+info:
+  title: GetWorkIten API
+  version: 'v1'
+servers:
+  - url: https://dev.api.communityfibre.co.uk/dev/work-item/v1
+
+paths:
+  /0.0/get:
+    description: Get Work Item
+    post:
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: opID
+          schema:
+            type: string
+            example: "CFL"
+          required: true
+        - in: header
+          name: buID
+          schema:
+            type: string
+            example: "DEFAULT"
+          required: true
+        - in: header
+          name: userID
+          schema:
+            type: string
+            example: "1608969"
+          required: true
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: "application/json"
+          required: true
+
+ 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - searchFilter
+              properties:
+                  searchFilter:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - itemID
+                      properties:
+                        itemID:
+                          type: string
+                          example: 'APPNT_WI-146800092'
+                  levelOfInformation: 
+                    type: string
+                    example: 'INFO'
+            example:
+              searchFilter:
+                - itemID: 'APPNT_WI-146800092'
+              levelOfInformation: 'INFO'
+              
+    
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        statusCode:
+                          type: string
+                          example: '0000'
+                        statusDescription:
+                          type: string
+                          example: 'Successfully Retrieved'
+                        statusType:
+                          type: string
+                          example: 'Informational'
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        itemID:
+                          type: string
+                          example: 'APPNT_WI-146800092'
+                        itemCategoryID:
+                          type: string
+                          example: 'APPOINTMENT_CATG'
+                        itemTypeID:
+                          type: string
+                          example: 'APPOINTMENT_TYPE'
+                        itemSubTypeID:
+                          type: string
+                          example: 'APPOINTMENTFAIL'
+                        severity:
+                          type: string
+                          example: '2'
+                        priority:
+                          type: string
+                          example: 'P2'
+                        openDate:
+                          type: string
+                          example: '2024-04-12T10:52:08.000+00:00'
+                        closeDate:
+                          type: string
+                          example: '2024-04-12T10:55:56.000+00:00'
+                        targetResolutionDate:
+                          type: string
+                          example: '2024-04-12T11:22:08.000+00:00'
+                        plannedResolutionDate:
+                          type: string
+                          example: '2024-04-12T11:22:08.000+00:00'
+                        itemContactInfo:
+                          type: array
+                          items: 
+                            type: string
+                          example: []
+                        escalationLevel:
+                          type: string
+                          example: '0'
+                        sla:
+                          type: string
+                          example: '0.5'
+                        slaUOM:
+                          type: string
+                          example: 'Hour'
+                        slaBreach:
+                          type: string
+                          example: 'N'
+                        correlatedItemCount:
+                          type: integer
+                          example: 0
+                        statusList:
+                          type: object
+                          properties:
+                            itemStatus:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  statusCode:
+                                    type: string
+                                    example: 'Closed'
+                                  statusDescription:
+                                    type: string
+                                    example: 'Closed'
+                                  taskStatus:
+                                    type: array
+                                    items:
+                                      type: string
+                                    example: []
+                        isClosed:
+                          type: boolean
+                          example: true
+                        assignedTo:
+                          type: object
+                          example: {}
+                        itemTaskList:
+                          type: array
+                          items:
+                            type: string
+                          example: []
+                        itemFollowUpList:
+                          type: array
+                          items:
+                            type: string
+                          example: []
+                        itemCommsInfo:
+                          type: array
+                          items:
+                            type: string
+                          example: []
+                        categoryDescription:
+                          type: string
+                          example: 'Appointment'
+                        typeDescription:
+                          type: string
+                          example: 'Appointment'
+                        subTypeDescription:
+                          type: string
+                          example: 'Create Appointment'
+                        isOpen:
+                          type: boolean
+                          example: false
+                        isSelfAssigned:
+                          type: boolean
+                          example: false
+                        isAssigned:
+                          type: boolean
+                          example: false
+                        isInProgress:
+                          type: boolean
+                          example: false
+                        isCancelled:
+                          type: boolean
+                          example: false
+                        itemStatus: 
+                          type: string
+                          example: 'Closed'
+                        selfAssign:
+                          type: boolean
+                          example: false
+                        reAssign:
+                          type: boolean
+                          example: false
+                        unAssign:
+                          type: boolean
+                          example: false
+                        cancel:
+                          type: boolean
+                          example: false
+                        printWorkItem:
+                          type: boolean
+                          example: false
+                        createdBy:
+                          type: string
+                          example: 'CFLTELE'
+                        itemOwner:
+                          type: boolean
+                          example: false
+                        userBelongToGroup:
+                          type: boolean
+                          example: false
+                        hasEscalations:
+                          type: boolean
+                          example: false
+                        noOfEscalation:
+                          type: integer
+                          example: 0
+                        hasFollowups:
+                          type: boolean
+                          example: false
+                        allowManualEscalation:
+                          type: boolean
+                          example: false
+                        allowHoldEscalation:
+                          type: boolean
+                          example: false
+                        holdEscalationFlag: 
+                          type: boolean
+                          example: false
+                        escalationFlag:
+                          type: boolean
+                          example: false
+                        itemVersionNbr: 
+                          type: string
+                          example: '1'
+                        closureNotes:
+                          type: string
+                          example: 'Test'
+                        cancelled:
+                          type: boolean
+                          example: false
+                        inProgress:
+                          type: boolean
+                          example: false
+                        selfAssigned:
+                          type: boolean
+                          example: false
+                        assigned:
+                          type: boolean
+                          example: false
+                        open:
+                          type: boolean
+                          example: false
+              example:
+                statusList:
+                  - statusCode: '0000'
+                    statusDescription: 'Successfully Retrieved'
+                    statusType: 'Informational'
+                items:
+                  - itemID: 'APPNT_WI-146800092'
+                    itemCategoryID: 'APPOINTMENT_CATG'
+                    itemTypeID: 'APPOINTMENT_TYPE'
+                    itemSubTypeID: 'APPOINTMENTFAIL'
+                    severity: '2'
+                    priority: 'P2'
+                    openDate: '2024-04-12T10:52:08.000+00:00'
+                    closeDate: '2024-04-12T10:55:56.000+00:00'
+                    targetResolutionDate: '2024-04-12T11:22:08.000+00:00'
+                    plannedResolutionDate: '2024-04-12T11:22:08.000+00:00'
+                    itemContactInfo: []
+                    escalationLevel: '0'
+                    sla: '0.5'
+                    slaUOM: 'Hour'
+                    slaBreach: 'N'
+                    correlatedItemCount: 0
+                    statusList:
+                      itemStatus:
+                        - statusCode: 'Closed'
+                          statusDescription: 'Closed'
+                          taskStatus: []
+                    isClosed: true
+                    assignedTo: {}
+                    itemTaskList: []
+                    itemFollowUpList: []
+                    itemCommsInfo: []
+                    categoryDescription: 'Appointment'
+                    typeDescription: 'Appointment'
+                    subTypeDescription: 'Create Appointment'
+                    isOpen: false
+                    isSelfAssigned: false
+                    isAssigned: false
+                    isInProgress: false
+                    isCancelled: false
+                    itemStatus: 'Closed'
+                    selfAssign: false
+                    reAssign: false
+                    unAssign: false
+                    cancel: false
+                    printWorkItem: false
+                    createdBy: 'CFLTELE'
+                    itemOwner: false
+                    userBelongToGroup: false
+                    hasEscalations: false
+                    noOfEscalation: 0
+                    hasFollowups: false
+                    allowManualEscalation: false
+                    allowHoldEscalation: false
+                    holdEscalationFlag: false
+                    escalationFlag: false
+                    itemVersionNbr: '1'
+                    closureNotes: 'Test'
+                    cancelled: false
+                    inProgress: false
+                    selfAssigned: false
+                    assigned: false
+                    open: false
+        
+        
+        400:                        
+          description: MALFORMED_REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+                  code:
+                    type: string
+                    example: "MALFORMED_REQUEST"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Problem parsing request parameters - missing mandatory parameter(s)"
+              example:
+                uuid: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+                code: "MALFORMED_REQUEST"
+                messages:
+                    - "Problem parsing request parameters - missing mandatory parameter(s)"
+
+
+        401:  
+          description: NOT_AUTHORISED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+                  code:
+                    type: string
+                    example: "NOT_AUTHORISED"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Not authorised to use this endpoint"
+              example:
+                uuid: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+                code: "NOT_AUTHORISED"
+                messages:
+                    - "Not authorised to use this endpoint"
+
+
+        500:  
+          description: SUPPLIER_FAULT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+                  code:
+                    type: string
+                    example: "SUPPLIER_FAULT"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "An unexpected system error occurred"
+              example:
+                uuid: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+                code: "SUPPLIER_FAULT"
+                messages:
+                    - "An unexpected system error occurred"  
+                    
+components:
+ securitySchemes:
+  bearerAuth:
+      description: |
+        The Apigee Gateway can support a number of different authentication mechanisms e.g. JWT bearer tokens
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
