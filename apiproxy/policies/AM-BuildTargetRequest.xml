@@ -7,8 +7,7 @@
             <Header name="opID">CFL</Header>
             <Header name="buID">DEFAULT</Header>
             <Header name="userID">CFLHOBS</Header>
-            <Header name="Content-Type">application/json</Header>
-        </Headers>
+            </Headers>
     </Set>
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
     <AssignTo createNew="false" transport="http" type="request"/>
