@@ -6,7 +6,6 @@
     <BasePaths>/dev/work-item-dummy/v1</BasePaths>
     <Policies>
         <Policy>OAS-Reassign-ValidateRequest</Policy>
-        <Policy>FC-PreRequest</Policy>
         <Policy>AM-RemoveHeader-APIKey</Policy>
         <Policy>FC-Custom-Logger</Policy>
         <Policy>FC-Custom-Errors</Policy>
