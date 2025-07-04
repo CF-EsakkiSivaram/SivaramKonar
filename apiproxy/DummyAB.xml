@@ -3,7 +3,7 @@
     <Description></Description>
     <CreatedAt>1751639042487</CreatedAt>
     <LastModifiedAt>1751639042487</LastModifiedAt>
-    <BasePaths>/uat/work-item-dummy/v1</BasePaths>
+    <BasePaths>/work-item-dummy/v1</BasePaths>
     <Policies>
         <Policy>AM-RemoveHeader-APIKey</Policy>
         <Policy>FC-Custom-Logger</Policy>
