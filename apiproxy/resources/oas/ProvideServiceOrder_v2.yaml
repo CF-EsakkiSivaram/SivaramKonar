@@ -6,7 +6,7 @@ servers:
   - url: https://dev.api.communityfibre.co.uk/dev/supernova/v1
   
 paths:
-  /1.0/service-orders:
+  /1.0/service:
      description: Create an order for new service(s).
      post:
       description: Create an order for new service(s).
