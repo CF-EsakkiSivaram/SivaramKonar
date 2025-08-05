@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceCallout continueOnError="false" enabled="true" name="SC-GetAppointment-GetGISResponse">
+  <DisplayName>SC-GetAppointment-GetGISResponse</DisplayName>
+  <Properties/>
+  <Request variable="targetRequest1">
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <Set>
+      <Headers>
+        <Header name="Authorization">Bearer {clientreq.beareroauthtoken}</Header>
+      </Headers>
+      <Verb>GET</Verb>
+      <QueryParams>
+        <QueryParam name="uprn">{uprn}</QueryParam>
+      </QueryParams>
+    </Set>
+  </Request>
+  <Response>targetResponse1</Response>
+  <LocalTargetConnection>
+    <Path>/test/uni1/v1/0.0/premise-address</Path>
+  </LocalTargetConnection>
+</ServiceCallout>

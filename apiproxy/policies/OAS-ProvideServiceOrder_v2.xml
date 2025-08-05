@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OASValidation continueOnError="false" enabled="true" name="OAS-ProvideServiceOrder_v2">
+    <DisplayName>OAS-ProvideServiceOrder_v2</DisplayName>
+    <Properties/>
+    <Source>request</Source>
+    <OASResource>oas://ProvideServiceOrder_v2.yaml</OASResource>
+    <Options>
+        <ValidateMessageBody>true</ValidateMessageBody>
+    </Options>
+</OASValidation>

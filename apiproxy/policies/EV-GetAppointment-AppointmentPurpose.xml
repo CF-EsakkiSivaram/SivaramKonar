@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="true" enabled="true" name="EV-GetAppointment-AppointmentPurpose">
+  <DisplayName>EV-GetAppointment-AppointmentPurpose</DisplayName>
+  <Properties/>
+  <QueryParam name="appointmentPurpose">
+    <Pattern>{appointmentPurpose}</Pattern>
+  </QueryParam>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <Source clearPayload="false">request</Source>
+  <VariablePrefix>req</VariablePrefix>
+</ExtractVariables>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault continueOnError="false" enabled="true" name="RF-CeaseAmendOrder-HobsValidateOrder">
+    <DisplayName>RF-CeaseAmendOrder-HobsValidateOrder</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers/>
+            <Payload contentType="application/json">
+                {targetResponse2.content}
+            </Payload>
+            <StatusCode>200</StatusCode>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

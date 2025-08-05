@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceCallout continueOnError="false" enabled="true" name="SC-SupernovaIntegration">
+    <DisplayName>SC-SupernovaIntegration</DisplayName>
+    <Properties/>
+    <Request variable="targetRequest1">
+        <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+        <Set>
+            <Headers>
+                <Header name="Authorization">Bearer {clientreq.beareroauthtoken}</Header>
+            </Headers>
+            <Verb>POST</Verb>
+            <Payload>{request.content}</Payload>
+        </Set>
+    </Request>
+    <Response>targetResponse1</Response>
+    <LocalTargetConnection>
+        <Path>/test/vf-integration/v1/0.0/provide-service-order</Path>
+    </LocalTargetConnection>
+</ServiceCallout>

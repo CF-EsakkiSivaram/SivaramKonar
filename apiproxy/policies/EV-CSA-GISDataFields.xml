@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-CSA-GISDataFields">
+  <DisplayName>EV-CSA-GISDataFields</DisplayName>
+  <Properties/>
+  <JSONPayload>
+    <Variable name="address_identifier_id">
+      <JSONPath>$.uprn</JSONPath>
+    </Variable>
+    <Variable name="address_name">
+      <JSONPath>$.business_name</JSONPath>
+    </Variable>
+    <Variable name="address_streetNumber">
+      <JSONPath>$.door_number</JSONPath>
+    </Variable>
+    <Variable name="address_streetName">
+      <JSONPath>$.block</JSONPath>
+    </Variable>
+    <Variable name="address_locality">
+      <JSONPath>$.borough</JSONPath>
+    </Variable>
+    <Variable name="address_postcode">
+      <JSONPath>$.postcode</JSONPath>
+    </Variable>
+    <Variable name="address_subAddress_name">
+      <JSONPath>$.business_name</JSONPath>
+    </Variable>
+    <Variable name="address_subAddress_unitNumber">
+      <JSONPath>$.door_number</JSONPath>
+    </Variable>
+    <Variable name="serviceSpecifications_id">
+      <JSONPath>$.portfolio_id</JSONPath>
+    </Variable>
+    <Variable name="siteInformation_installationType">
+      <JSONPath>$.classification_code</JSONPath>
+    </Variable>
+    <Variable name="siteInformation_serviceReadyDate">
+      <JSONPath>$.live_date</JSONPath>
+    </Variable>
+    <Variable name="siteInformation_siteName">
+      <JSONPath>$.address</JSONPath>
+    </Variable>
+    <Variable name="siteInformation_siteLocation">
+      <JSONPath>$.geom</JSONPath>
+    </Variable>
+    <Variable name="sales_status">
+      <JSONPath>$.sales_status</JSONPath>
+    </Variable>
+    <Variable name="sprn">
+      <JSONPath>$.sprn</JSONPath>
+    </Variable>
+    <Variable name="status">
+      <JSONPath>$.status</JSONPath>
+    </Variable>
+    <Variable name="manufacturer">
+      <JSONPath>$.manufacturer</JSONPath>
+    </Variable>
+  </JSONPayload>
+  <VariablePrefix>gis</VariablePrefix>
+  <Source clearPayload="false">responseContent</Source>
+</ExtractVariables>

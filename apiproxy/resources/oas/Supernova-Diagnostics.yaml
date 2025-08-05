@@ -1,0 +1,306 @@
+openapi: 3.0.0
+info:
+  title: Supernova Diagnostic API
+  version: 'v1'
+servers:
+  - url: https://dev.api.communityfibre.co.uk/dev/supernova/v1
+paths:
+  /0.0/get-diagnostics:
+    description: Get diagnostics
+    post:
+      tags:
+      - Diagnostics
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - ont_serial
+              - business_entity
+              - wholesale_partner
+              properties:
+                ont_serial:
+                  type: string
+                  minLength: 1
+                  example: "ADTN21124c12"
+                business_entity:
+                  type: string
+                  example: "wholesale"
+                wholesale_partner:
+                  type: string
+                  example: "talktalk"
+                subscriber_ID:
+                  type: string
+                  example: "S12345"
+      
+      responses:
+        200:
+          description: Get Diagnostics response success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "SUCCESS"
+                  request_id:
+                    type: string
+                    example: "87e26129-0063-42bb-8b69-2b10b64bcb6e"
+                  result:
+                    type: object
+                    properties:
+                      service_health:
+                        type: object
+                        properties:
+                          service_status:
+                            type: object  
+                            properties:
+                              last_event_at:
+                                type: string
+                                example: "2023-04-27 11:29:14+01:00"
+                              status: 
+                                type: string
+                                example: "UP"
+                          service_notification_48h:
+                            type: string
+                            example: null
+                          active_outage:
+                            type: string
+                            example: null
+                          event_history_14d:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                event_timestamp:
+                                  type: string
+                                event_name:
+                                  type: string
+                            example:
+                              - event_timestamp: "023-04-27 11:29:14+01:00"
+                                event_name: "ONT_LOSC"
+                              - event_timestamp: "2023-04-27 09:52:46+01:00"
+                                event_name: "ONT_LOSC"
+                              - event_timestamp: "2023-04-13 17:26:56+01:00"
+                                event_name: "ONT_LOSC"
+                      service_config:
+                        type: object
+                        properties:
+                          bandwidth_ds: 
+                            type: string
+                            example: null
+                          bandwidth_us:
+                            type: string
+                            example: null
+                          remote_id:
+                            type: string
+                            example: null
+                          s_tag:
+                            type: string
+                            example: null
+                          c_tag:
+                            type: string
+                            example: null
+                      enni_status:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            interface_name:
+                              type: string
+                              example: "ac0"
+                            last_checked:
+                              type: string
+                              example: "2023-05-02 09:06:24+01:00"
+                            item_name: 
+                              type: string
+                              example: "Interface ae0(Aggregate to ENNI Partner talktalk): Operation status"
+                            value:
+                              type: string
+                              example: "DOWN"
+                      light_levels:
+                        type: object
+                        properties:
+                          tx:
+                            type: object
+                            properties:
+                              item_name:
+                                type: string
+                                example: "ONT ADTN21124c12: TX Power"
+                              last_checked:
+                                type: string
+                                example: "2023-04-27 13:21:23+01:00"
+                              value:
+                                type: string
+                                example: "6.50"
+                          rx:
+                            type: object
+                            properties:
+                              item_name:
+                                type: string
+                                example: "ONT ADTN21124c12: RX Power"
+                              last_checked:
+                                type: string
+                                example: "2023-04-27 13:21:23+01:00"
+                              value:
+                                type: string
+                                example: "-13.10"
+                      pon_status:
+                        type: object
+                        properties:
+                          pon_state:
+                            type: object
+                            properties:
+                              item_name:
+                                type: string
+                                example: "PON 1/5/12: State"
+                              last_checked:
+                                type: string
+                                example: "2023-04-27 13:16:30+01:00"
+                              value:
+                                type: string
+                                example: "UP"
+                          bw_os_ratio_ds:
+                            type: object
+                            properties:
+                              item_name:
+                                type: string
+                                example: "PON 1/5/12: Bandwidth oversubscription ratio downstream"
+                              last_checked:
+                                type: string
+                                example: "2023-04-27 13:26:48+01:00"
+                              value:
+                                type: string
+                                example: "0.18"
+                          bw_os_ratio_us:
+                            type: object
+                            properties:
+                              item_name:
+                                type: string
+                                example: "PON 1/5/12: Bandwidth oversubscription ratio upstream"
+                              last_checked:
+                                type: string
+                                example: "2023-04-27 13:26:49+01:00"
+                              value:
+                                type: string
+                                example: "0.13"
+                          pon_out_peak:
+                            type: object
+                            properties:
+                              item_name:
+                                type: string
+                                example: "PON 1/5/12: Downstream utilisation peak"
+                              last_checked:
+                                type: string
+                                example: "2023-04-27 13:07:39+01:00"
+                              value:
+                                type: string
+                                example: "0.00"
+                          pon_out_avg:
+                            type: object
+                            properties:
+                              item_name:
+                                type: string
+                                example: "PON 1/5/12: Downstream utilisation avg"
+                              last_checked:
+                                type: string
+                                example: "2023-04-27 13:07:39+01:00"
+                              value:
+                                type: string
+                                example: "0.00"
+                          pon_in_peak:
+                            type: object
+                            properties:
+                              item_name:
+                                type: string
+                                example: "PON 1/5/12: Upstream utilisation peak"
+                              last_checked:
+                                type: string
+                                example: "2023-04-27 13:07:39+01:00"
+                              value:
+                                type: string
+                                example: "0.00"
+                          pon_in_avg:
+                            type: object
+                            properties:
+                              item_name:
+                                type: string
+                                example: "PON 1/5/12: Upstream utilisation avg"
+                              last_checked:
+                                type: string
+                                example: "2023-04-27 13:07:39+01:00"
+                              value:
+                                type: string
+                                example: "0.00"
+                          
+                            
+                        
+        400:                        
+          description: MALFORMED_REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+                  code:
+                    type: string
+                    example: "MALFORMED_REQUEST"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Problem parsing request parameters - missing mandatory parameter(s)"                       
+        '401':  
+          description: NOT_AUTHORISED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+                  code:
+                    type: string
+                    example: "NOT_AUTHORISED"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Not authorised to use this endpoint"                      
+        '500':  
+          description: SUPPLIER_FAULT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+                  code:
+                    type: string
+                    example: "SUPPLIER_FAULT"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "An unexpected system error occurred"     
+         
+components:
+ securitySchemes:
+  bearerAuth:
+      description: |
+        The Apigee Gateway can support a number of different authentication mechanisms e.g. JWT bearer tokens
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+                      

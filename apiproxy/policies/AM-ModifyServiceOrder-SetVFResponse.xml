@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-ModifyServiceOrder-SetVFResponse">
+  <DisplayName>AM-ModifyServiceOrder-SetVFResponse</DisplayName>
+  <Properties/>
+  <Set>
+    <Headers>
+      <Header name="Content-Type">application/json</Header>
+    </Headers>
+    <Payload contentType="application/json">
+            {
+    "status": "IN_PROGRESS",
+    "supplierReference": "{Hobs_OrderId}",
+    "committedDate": "{requestedCompletionDate}",
+    "targetDate": "{requestedCompletionDate}",
+    "id": "{Id}",
+    "orderType": "{orderType}",
+    "tenant": "{tenant}",
+    "serviceId": "{serviceId}",
+    "serviceCharacteristics": {serviceCharacteristics},
+    "requestedCompletionDate": "{requestedCompletionDate}"
+}
+        </Payload>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="response"/>
+</AssignMessage>

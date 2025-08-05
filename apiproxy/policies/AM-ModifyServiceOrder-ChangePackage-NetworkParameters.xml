@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-ModifyServiceOrder-ChangePackage-NetworkParameters">
+  <DisplayName>AM-ModifyServiceOrder-ChangePackage-NetworkParameters</DisplayName>
+  <Set>
+    <Headers>
+      <Header name="opID">CFL</Header>
+      <Header name="buID">DEFAULT</Header>
+      <Header name="userID">CFLHOBS</Header>
+      <Header name="Authorization">Basic {propertyset.API_Config.hobs_token}</Header>
+    </Headers>
+    <Payload contentType="application/json">
+{
+    "partnerId": "vfwholesale",
+    "customerRequestedDate": "{requestedCompletionDate}",
+    "subscriberId":"{serviceId}",
+    "incomingPackageId":"{productName}",
+    "externalOrderId":"{Id}",
+    "networkParameters": {networkParameters}
+}
+        </Payload>
+    <Verb>POST</Verb>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="request"/>
+</AssignMessage>

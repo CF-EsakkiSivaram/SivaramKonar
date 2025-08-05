@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault continueOnError="false" enabled="true" name="RF-ProvideAmendOrder-422InvalidAmendment">
+  <DisplayName>RF-ProvideAmendOrder-422InvalidAmendment</DisplayName>
+  <Properties/>
+  <FaultResponse>
+    <AssignVariable>
+      <Name>errMsg</Name>
+      <Template>[{targetResponse3.content}]</Template>
+    </AssignVariable>
+    <AssignVariable>
+      <Name>errCode</Name>
+      <Value>UNPROCESSABLE_ENTITY</Value>
+    </AssignVariable>
+    <Set>
+      <StatusCode>422</StatusCode>
+    </Set>
+  </FaultResponse>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

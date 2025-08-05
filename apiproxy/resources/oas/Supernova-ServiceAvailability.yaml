@@ -1,0 +1,384 @@
+openapi: 3.0.0
+info:
+  title: Supernova-ServiceAvailability API
+  version: 'v1'
+servers:
+  - url: https://dev.api.communityfibre.co.uk/dev/supernova/v1
+  
+paths:
+  /0.0/service-availability:
+    get:
+      summary: Get service details
+      tags: 
+        - ServiceAvailability
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: address
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - type
+                properties:
+                  id:
+                    type: string
+                    example: "5057066"
+                  type:
+                    type: string
+                    example: "UPRN"
+        - in: header
+          name: X-Request-ID
+          schema:
+            type: string
+            example: "xyz"
+          required: true
+        - in: header
+          name: X-Conversation-ID
+          schema:
+            type: string
+            example: "xyz"
+          required: true
+        - in: header
+          name: Tenant
+          schema:
+            type: string
+            example: "TALKTALK_SIT"
+          required: true
+          
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  address:
+                    type: object
+                    properties:
+                      identifier:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            example: "200004033694"
+                          type:
+                            type: string
+                            example: "UPRN"
+                      name:
+                        type: string
+                        example: "TWENTY"
+                      streetNumber:
+                        type: string
+                        example: "20"
+                      streetName:
+                        type: string
+                        example: "Kingston Road"
+                      locality:
+                        type: string
+                        example: "string"
+                      city:
+                        type: string
+                        example: "Staines-Upon-Thames"
+                      postcode:
+                        type: string
+                        example: "TW184LG"
+                      country:
+                        type: string
+                        example: "UK"
+                      subAddress:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: "Strategic Imperatives"
+                          unitNumber:
+                            type: string
+                            example: "Floor 3"
+                  serviceSpecifications:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "ftthl2r"
+                        name:
+                          type: string
+                          example: "FTTH"
+                        serviceCharacteristics:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                example: "LINE_PROFILE"
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                                  example: "100/20"
+                  siteInformation:
+                    type: object
+                    properties:
+                      newLine:
+                        type: boolean
+                        example: true
+                      installationType:
+                        type: string
+                        example: "STANDARD"
+                      constraints:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            code:
+                              type: string
+                              example: "WAYLEAVE_SHARED"
+                            text:
+                              type: string
+                              example: "string"
+                      serviceReadyDate:
+                        type: string
+                        format: date
+                        example: "2022-01-01"
+                      enniId:
+                        type: string
+                        example: "S1889"
+                      siteName:
+                        type: string
+                        example: "string"
+                      siteLocation:
+                        type: string
+                        example: "string"
+                      existingLines:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            enniId:
+                              type: string
+                              example: "S1889"
+                            siteName:
+                              type: string
+                              example: "string"
+                            siteLocation:
+                              type: string
+                              example: "string"
+                            installationType:
+                              type: string
+                              example: "STANDARD"
+                            ont:
+                              type: object
+                              properties:
+                                ontReference:
+                                  type: string
+                                  example: "ONT0000123123"
+                                serialNumber:
+                                  type: string
+                                  example: "1234567890"
+                                manufacturer:
+                                  type: string
+                                  example: "Nokia"
+                                floor:
+                                  type: string
+                                  example: "1"
+                                room:
+                                  type: string
+                                  example: "Reception"
+                                position:
+                                  type: string
+                                  example: "string"
+                                ports:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      portNumber:
+                                        type: integer
+                                        example: 2
+                                      description:
+                                        type: string
+                                        example: "Data"
+                                      status:
+                                        type: string
+                                        example: "ACTIVE"
+                                      tenantActive:
+                                        type: boolean
+                                        example: false
+                                      stoppedDate:
+                                        type: string
+                                        format: date-time
+                                        example: "2022-01-01T13:45:00.000Z"
+                            lineId:
+                              type: string
+                              example: "OHP5738089O3"
+                            lineCharacteristics:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                    example: "DOWNSTREAM_BANDWIDTH"
+                                  value:
+                                    type: string
+                                    example: "68700"
+                  unavailabilityReasons:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: "OUT_OF_OPTIC_RANGE"
+                        text:
+                          type: string
+                          example: "string"
+                          
+              example:
+                address:
+                  identifier:
+                    id: '200004033694'
+                    type: UPRN
+                  name: TWENTY
+                  streetNumber: '20'
+                  streetName: Kingston Road
+                  locality: string
+                  city: Staines-Upon-Thames
+                  postcode: TW184LG
+                  country: UK
+                  subAddress:
+                    name: Strategic Imperatives
+                    unitNumber: Floor 3
+                serviceSpecifications:
+                  - id: ftthl2r
+                    name: FTTH
+                    serviceCharacteristics:
+                      - name: LINE_PROFILE
+                        values:
+                          - 100/20
+                siteInformation:
+                  newLine: true
+                  installationType: STANDARD
+                  constraints:
+                    - code: WAYLEAVE_SHARED
+                      text: string
+                  serviceReadyDate: '2022-01-01'
+                  enniId: S1889
+                  siteName: string
+                  siteLocation: string
+                  existingLines:
+                    - enniId: S1889
+                      siteName: string
+                      siteLocation: string
+                      installationType: STANDARD
+                      ont:
+                        ontReference: ONT0000123123
+                        serialNumber: '1234567890'
+                        manufacturer: Nokia
+                        floor: '1'
+                        room: Reception
+                        position: string
+                        ports:
+                          - portNumber: 2
+                            description: Data
+                            status: ACTIVE
+                            tenantActive: false
+                            stoppedDate: '2022-01-01T13:45:00.000Z'
+                      lineId: OHP5738089O3
+                      lineCharacteristics:
+                        - name: DOWNSTREAM_BANDWIDTH
+                          value: '68700'
+                unavailabilityReasons:
+                  - code: OUT_OF_OPTIC_RANGE
+                    text: string
+                
+        400:                        
+          description: MALFORMED_REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+                  code:
+                    type: string
+                    example: "MALFORMED_REQUEST"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Problem parsing request parameters - missing mandatory parameter(s)"
+              example:
+                uuid: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+                code: "MALFORMED_REQUEST"
+                messages:
+                    - "Problem parsing request parameters - missing mandatory parameter(s)"
+
+
+        401:  
+          description: NOT_AUTHORISED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+                  code:
+                    type: string
+                    example: "NOT_AUTHORISED"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Not authorised to use this endpoint"
+              example:
+                uuid: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+                code: "NOT_AUTHORISED"
+                messages:
+                    - "Not authorised to use this endpoint"
+
+
+        500:  
+          description: SUPPLIER_FAULT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+                  code:
+                    type: string
+                    example: "SUPPLIER_FAULT"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "An unexpected system error occurred"
+              example:
+                uuid: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+                code: "SUPPLIER_FAULT"
+                messages:
+                    - "An unexpected system error occurred"
+                    
+components:
+  securitySchemes:
+    bearerAuth:
+      description: |
+        The Apigee Gateway can support a number of different authentication mechanisms e.g. JWT bearer tokens
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

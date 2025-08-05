@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LookupCache continueOnError="false" enabled="true" name="LC-CSA-GISResponse">
+  <DisplayName>LC-CSA-GISResponse</DisplayName>
+  <Properties/>
+  <CacheKey>
+    <Prefix>GISRes</Prefix>
+    <KeyFragment ref="req.uprn"/>
+    <KeyFragment>response</KeyFragment>
+  </CacheKey>
+  <CacheResource>GisRes_PC_Response</CacheResource>
+  <AssignTo>lookupGISRes</AssignTo>
+</LookupCache>

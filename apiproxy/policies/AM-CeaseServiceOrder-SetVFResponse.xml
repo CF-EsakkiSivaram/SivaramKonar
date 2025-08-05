@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-CeaseServiceOrder-SetVFResponse">
+  <DisplayName>AM-CeaseServiceOrder-SetVFResponse</DisplayName>
+  <Properties/>
+  <Set>
+    <Headers>
+      <Header name="X-Request-ID">{req.requestID}</Header>
+      <Header name="X-Conversation-ID">{req.Conversation_ID}</Header>
+      <Header name="Content-Type">application/json</Header>
+    </Headers>
+    <Payload contentType="application/json">
+            {
+                "id": "{req.id}",
+                "orderType": "{req.orderType}",
+                "tenant": "{req.tenant}",
+                "supplierReference": "{res_orderID}",
+                "serviceId": "{req.subscriberId}",
+                "requestedCompletionDate": "{res_customerRequestedDate}",
+                "committedDate": "{res_customerRequestedDate}",
+                "targetDate": "{res_customerRequestedDate}",
+                "status": "IN_PROGRESS"
+            }
+        </Payload>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="response"/>
+</AssignMessage>

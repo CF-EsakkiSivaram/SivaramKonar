@@ -1,0 +1,20 @@
+ var currDate = new Date(context.getVariable('system.timestamp'));
+var dateTimeIsoString = currDate.toISOString();
+// split by dot
+var currDateTime = dateTimeIsoString.slice(0, 23);
+var addMlSeconds = 60 * 60 * 1000;
+var numberOfMlSeconds = currDate.getTime();
+var currDateTime = new Date(numberOfMlSeconds + addMlSeconds);
+var currTimestamp = currDateTime.toISOString().slice(0, 23);
+var timeZoneOffset = currDate.getTimezoneOffset();
+var positiveOffset = Math.abs(timeZoneOffset);
+var timeOffsetInHours = -(timeZoneOffset/60);
+var timeOffsetInHours = timeOffsetInHours + 1;
+var minZone = (positiveOffset - Math.floor(timeOffsetInHours) * 60) + 60;
+var symbolOffset = timeZoneOffset > 0 ? '-' : '+' ;
+var hourOffset = Math.floor(timeOffsetInHours) < 10 ? 0 : '';
+var minOffset = minZone < 10 ? 0 : '';
+var tzd = symbolOffset + hourOffset + Math.floor(timeOffsetInHours) + ":" + minOffset + minZone;
+var dateTZDformat = currTimestamp + tzd;
+print(dateTZDformat);
+context.setVariable('interactionDate',dateTZDformat);

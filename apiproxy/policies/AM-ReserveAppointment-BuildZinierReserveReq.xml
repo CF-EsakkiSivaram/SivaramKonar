@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-ReserveAppointment-BuildZinierReserveReq">
+  <DisplayName>AM-ReserveAppointment-BuildZinierReserveReq</DisplayName>
+  <Properties/>
+  <Set>
+    <Headers>
+      <Header name="Authorization">Bearer {clientreq.beareroauthtoken}</Header>
+      <Header name="Content-Type">application/json</Header>
+    </Headers>
+    <Payload contentType="application/json">
+            {
+              "data": [
+                {
+                  "eventId": "reserveAppointment",
+                  "contextVar": {
+                    "date": "{reserveDate}",
+                    "appointmentWindowId": "{period}",  
+                    "scheduleType": "{scheduleType}",
+                    "broadbandProduct": "{propertyset.API_Config.supernovaBroadbandProduct}",
+                    "serviceType": "Standard",
+                    "accountType": "Residential",
+                    "installationType": {installationType},
+                    "region": "{region}"
+                  }
+                }
+              ]
+            }
+        </Payload>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="request"/>
+</AssignMessage>

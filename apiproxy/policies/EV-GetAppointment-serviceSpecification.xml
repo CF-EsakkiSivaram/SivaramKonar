@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="true" enabled="true" name="EV-GetAppointment-serviceSpecification">
+  <DisplayName>EV-GetAppointment-serviceSpecification</DisplayName>
+  <Properties/>
+  <JSONPayload>
+    <Variable name="serviceSpecification_id">
+      <JSONPath>$.id</JSONPath>
+    </Variable>
+  </JSONPayload>
+  <Source clearPayload="false">request.queryparam.serviceSpecification</Source>
+</ExtractVariables>

@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="Supernova">
+    <DefaultFaultRule name="all">
+        <AlwaysEnforce>false</AlwaysEnforce>
+        <Step>
+            <Name>FC-Custom-Error_Supernova</Name>
+            <Condition>(error.status.code != "200")</Condition>
+        </Step>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>FC-PreRequest_Supernova</Name>
+            </Step>
+            <Step>
+                <Name>AM-RemoveHeaders</Name>
+            </Step>
+            <Step>
+                <Name>EV-GetOrderType</Name>
+                <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-orders") OR (proxy.pathsuffix MatchesPath "/1.0/service-orders")</Condition>
+            </Step>
+            <Step>
+                <Name>EV-ProvideAmendOrder-GetReqFields</Name>
+                <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-order-amendments")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-Timestamp</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <Flows>
+        <Flow name="OptionsPreFlight">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>request.verb = "OPTIONS" AND request.header.origin != null AND request.header.Access-Control-Request-Method != null</Condition>
+        </Flow>
+        <Flow name="GetServiceAvailability">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-ServiceAvailability-ValidateRequest</Name>
+                </Step>
+                <Step>
+                    <Name>EV-CSA-addressId</Name>
+                </Step>
+                <Step>
+                    <Name>RF-CSA-MissingUPRNId</Name>
+                    <Condition>(req.uprn = null) or (req.uprn = "") or (req.addressType = null) or (req.addressType = "") or (request.header.X-Conversation-ID = "") or (request.header.X-Conversation-ID = null) or (request.header.X-Request-ID = "") or (request.header.X-Request-ID = null) or (request.header.Tenant = "") or (request.header.Tenant = null)</Condition>
+                </Step>
+                <Step>
+                    <Name>LC-CSA-GISResponse</Name>
+                </Step>
+                <Step>
+                    <Name>SC-CSA-GetGISResponse</Name>
+                    <Condition>(lookupGISRes = null)</Condition>
+                </Step>
+                <Step>
+                    <Name>LC-CSA-GISResponse</Name>
+                    <Condition>(lookupGISRes = null)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-CSA-GISResponse-NullCheck</Name>
+                </Step>
+                <Step>
+                    <Name>RF-CSA-422-NullCheck</Name>
+                    <Condition>(isGisResponse = false)</Condition>
+                </Step>
+                <Step>
+                    <Name>EV-CSA-GISDataFields</Name>
+                </Step>
+                <Step>
+                    <Name>SC-CSA-HOBSPremiseCheck</Name>
+                    <Condition>(gis.sales_status = 3) and (gis.status = 80)</Condition>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-CSA-BuildVFResponse</Name>
+                    <Condition>(gis.sales_status = 3) and (gis.status = 80)</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-CSA-BuildVFResponse-InValidStatus</Name>
+                    <Condition>(gis.sales_status != 3) OR (gis.status != 80)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-CSA-GetPremiseCheckDetail</Name>
+                    <Condition>(gis.sales_status = 3) and (gis.status = 80)</Condition>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-availability") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="GetAppointment">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-GetAppointment-ValidateRequest</Name>
+                </Step>
+                <Step>
+                    <Name>AM-GetAppointment-GetVFFields</Name>
+                </Step>
+                <Step>
+                    <Name>EV-GetAppointment-AppointmentPurpose</Name>
+                </Step>
+                <Step>
+                    <Name>EV-GetAppointment-addressId</Name>
+                </Step>
+                <Step>
+                    <Name>EV-GetAppointment-serviceSpecification</Name>
+                </Step>
+                <Step>
+                    <Name>RF-GetAppointment-MissingFields</Name>
+                    <Condition>(address = null) or (address = "") or (serviceSpecification = null) or (serviceSpecification = "") or (serviceSpecification_id = null) or (serviceSpecification_id = "") or (uprn = null) or (uprn = "") or (addressType = null) or (addressType = "") or (Conversation_ID = null) or (Conversation_ID = "") or (Request_ID = null) or (Request_ID = "") or (appointmentPurpose = null) or (appointmentPurpose = "") or (request.header.Tenant = "") or (request.header.Tenant = null) </Condition>
+                </Step>
+                <Step>
+                    <Name>JS-GetAppointment-SetZinierReqVars</Name>
+                </Step>
+                <Step>
+                    <Name>LC-GetAppointment-GISResponse</Name>
+                </Step>
+                <Step>
+                    <Name>SC-GetAppointment-GetGISResponse</Name>
+                    <Condition>(lookupGISRes = null)</Condition>
+                </Step>
+                <Step>
+                    <Name>LC-GetAppointment-GISResponse</Name>
+                    <Condition>(lookupGISRes = null)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-GetAppointment-SetCachedZinierVars</Name>
+                </Step>
+                <Step>
+                    <Name>RF-GetAppointment-422-NullCheck</Name>
+                    <Condition>(isGisResponse = false) or (region = null) or (installationType = null)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-SetScheduleType</Name>
+                </Step>
+                <Step>
+                    <Name>AM-GetAppointment-BuildZinierGetAppointmentReq</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/available-appointments") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="ReserveAppointment">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-ReserveAppointment-ValidateRequest</Name>
+                </Step>
+                <Step>
+                    <Name>EV-ReserveAppointment-ReqPayload</Name>
+                </Step>
+                <Step>
+                    <Name>JS-ReserveAppointment-ZinierReqDate</Name>
+                </Step>
+                <Step>
+                    <Name>LC-ReserveAppointment-GISResponse</Name>
+                </Step>
+                <Step>
+                    <Name>SC-ReserveAppointment-GetGISResponse</Name>
+                    <Condition>(lookupGISRes = null)</Condition>
+                </Step>
+                <Step>
+                    <Name>LC-ReserveAppointment-GISResponse</Name>
+                    <Condition>(lookupGISRes = null)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ReserveAppointment-SetCachedZinierVars</Name>
+                </Step>
+                <Step>
+                    <Name>RF-ReserveAppointment-422-NullCheck</Name>
+                    <Condition>(isGisResponse = false) or (region = null) or (installationType = null)</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ReserveAppointment-TimePeriod</Name>
+                </Step>
+                <Step>
+                    <Name>RF-ReserveAppointment-422-Timeslot</Name>
+                    <Condition>(period = "invalidtimeslot")</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-SetScheduleType</Name>
+                </Step>
+                <Step>
+                    <Name>AM-ReserveAppointment-BuildZinierReserveReq</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>JS-ReserveAppointment-getAppointmentData</Name>
+                </Step>
+                <Step>
+                    <Name>RF-ReserveAppointment-422-ZinierErr</Name>
+                    <Condition>(ZinierErrorMsg = true)</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-ReserveAppointment-SetVFResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/appointments") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="ProvideServiceOrder">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-ProvideServiceOrder-ValidateRequest</Name>
+                </Step>
+                <Step>
+                    <Name>JS-ProvideServiceOrder-ReqErrorHandling</Name>
+                </Step>
+                <Step>
+                    <Name>RF-ProvideServiceOrder-422InvalidRequest</Name>
+                    <Condition>(errMsg != "")</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-SupernovaIntegration</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-IntegrationResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-orders") and (request.verb = "POST") and (varOrderType == "NEW")</Condition>
+        </Flow>
+        <Flow name="CeaseServiceOrder">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-CeaseServiceOrder-ValidateRequest</Name>
+                </Step>
+                <Step>
+                    <Name>EV-CeaseServiceOrder-ReqPayload</Name>
+                </Step>
+                <Step>
+                    <Name>JS-CeaseServiceOrder-ReqErrorHandling</Name>
+                </Step>
+                <Step>
+                    <Name>RF-CeaseServiceOrder-422InvalidRequest</Name>
+                    <Condition>(errMsg != "")</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ServiceOrder-InteractionDate</Name>
+                </Step>
+                <Step>
+                    <Name>SC-CeaseServiceOrder-HobsOrderValidation</Name>
+                </Step>
+                <Step>
+                    <Name>EV-CeaseServiceOrder-HobsOrderValidation-GetResFields</Name>
+                </Step>
+                <Step>
+                    <Name>RF-CeaseServiceOrder-Error</Name>
+                    <Condition>(statusCode != "0000")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-CeaseServiceOrder-SetTargetRequest</Name>
+                    <Condition>(statusCode == "0000")</Condition>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-CeaseServiceOrder-GetResponseFields</Name>
+                </Step>
+                <Step>
+                    <Name>AM-CeaseServiceOrder-SetVFResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-orders") and (request.verb = "POST") and (varOrderType=="CEASE")</Condition>
+        </Flow>
+        <Flow name="ProvideAmendOrder">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-ProvideAmendOrder-ValidateRequest</Name>
+                </Step>
+                <Step>
+                    <Name>EV-ProvideAmendOrder-Provide-GetReqFields</Name>
+                </Step>
+                <Step>
+                    <Name>SC-ProvideAmendOrder-HobsValidateOrder</Name>
+                </Step>
+                <Step>
+                    <Name>EV-ProvideAmendOrder-GetHobs-ResFields</Name>
+                </Step>
+                <Step>
+                    <Name>RF-ProvideAmendOrder-HobsValidateOrder</Name>
+                    <Condition>(statusCode != "0000")</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ProvideAmendOrder-SetRequest</Name>
+                </Step>
+                <Step>
+                    <Name>SC-ProvideAmendOrder-ZinierGetWO</Name>
+                </Step>
+                <Step>
+                    <Name>JS-ProvideAmendOrder-GetStatusName</Name>
+                </Step>
+                <Step>
+                    <Name>RF-ProvideAmendOrder-422AmendmentNotPossible</Name>
+                    <Condition>(workOrderTaskIdStatus == "Empty")</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-ProvideAmendOrder-ZinierRescheduleAppointment</Name>
+                    <Condition>((statusName == "Open" OR statusName == "Scheduled") AND scheduleType != "service")</Condition>
+                </Step>
+                <Step>
+                    <Name>EV-ProvideAmendOrder-ZinierReschedule-GetResField</Name>
+                    <Condition>((statusName == "Open" OR statusName == "Scheduled") AND scheduleType != "service")</Condition>
+                </Step>
+                <Step>
+                    <Name>RF-ProvideAmendOrder-422InvalidAmendment</Name>
+                    <Condition>(res2.responseTitle == "Appointment Failed")</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-ProvideAmendOrder-CreateWorkOrder</Name>
+                    <Condition>(statusName != "Open" AND statusName != "Scheduled")</Condition>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-ProvideAmendOrder-SetVFResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-order-amendments") and (request.verb = "POST") and (req.appointmentReservationReference != null) </Condition>
+        </Flow>
+        <Flow name="CeaseAmendOrder">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-CeaseAmendOrder-ValidateRequest</Name>
+                </Step>
+                <Step>
+                    <Name>EV-CeaseAmendOrder-GetReqFields</Name>
+                </Step>
+                <Step>
+                    <Name>SC-CeaseAmendOrder-HobsValidateOrder</Name>
+                </Step>
+                <Step>
+                    <Name>EV-CeaseAmendOrder-GetHobs-ResFields</Name>
+                </Step>
+                <Step>
+                    <Name>RF-CeaseAmendOrder-HobsValidateOrder</Name>
+                    <Condition>(statusCode != "0000")</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-GetInteractionDate</Name>
+                </Step>
+                <Step>
+                    <Name>SC-CeaseAmendOrder-HobsGetOrderDetails</Name>
+                </Step>
+                <Step>
+                    <Name>EV-CeaseAmendOrder-GetOrderDetails</Name>
+                </Step>
+                <Step>
+                    <Name>RF-CeaseAmendOrder-422InvalidAmendment</Name>
+                    <Condition>(res.status != "0000")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-CeaseAmendOrder-SetTargetRequest</Name>
+                    <Condition>(res.status == "0000")</Condition>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-CeaseAmendOrder-GetResFields</Name>
+                </Step>
+                <Step>
+                    <Name>RF-CeaseAmendOrder-422InvalidAmendment</Name>
+                    <Condition>(res.statusCode != "0000")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-CeaseAmendOrder-SetVFResponse</Name>
+                    <Condition>(res.statusCode == "0000")</Condition>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-order-amendments") and (request.verb = "POST") and (req.appointmentReservationReference == null)</Condition>
+        </Flow>
+        <Flow name="CancelOrder">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-CancelOrder-ValidateRequest</Name>
+                </Step>
+                <Step>
+                    <Name>EV-CancelOrder-GetRequestFields</Name>
+                </Step>
+                <Step>
+                    <Name>JS-GetInteractionDate</Name>
+                </Step>
+                <Step>
+                    <Name>SC-CancelOrder-HobsValidateOrder</Name>
+                </Step>
+                <Step>
+                    <Name>EV-CancelOrder-GetHobs-ResFields</Name>
+                </Step>
+                <Step>
+                    <Name>RF-CancelOrder-Error</Name>
+                    <Condition>(res.statusCode != "0000")</Condition>
+                </Step>
+                <Step>
+                    <Name>AM-CancelOrder-BuildTargetReq</Name>
+                    <Condition>(res.statusCode == "0000")</Condition>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-CancelOrder-GetTarget-ResFields</Name>
+                </Step>
+                <Step>
+                    <Name>AM-CancelOrder-SetVFResponse</Name>
+                    <Condition>(res.targetStatusCode == "0000")</Condition>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-order-cancellations") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="ModifyServiceOrder">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-ModifyServiceOrder</Name>
+                </Step>
+                <Step>
+                    <Name>EV-GetFields</Name>
+                </Step>
+                <Step>
+                    <Name>SC-Modify-Validation</Name>
+                </Step>
+                <Step>
+                    <Name>EV-ModifyValidation</Name>
+                </Step>
+                <Step>
+                    <Name>RF-Modify-Validation</Name>
+                    <Condition>(StatusCodeValidation != "0000")</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ProductName</Name>
+                </Step>
+                <Step>
+                    <Name>JS-ARF-packages</Name>
+                </Step>
+                <Step>
+                    <Name>AM-ModifyServiceOrder-ChangePackage-NetworkParameters</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-orders") and (request.verb = "POST") and (varOrderType=="MODIFY")</Condition>
+        </Flow>
+        <Flow name="GetDiagnostics">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-Supernova-Diagnostics</Name>
+                </Step>
+                <Step>
+                    <Name>EV-SubscriberAndOnt</Name>
+                </Step>
+                <Step>
+                    <Name>SC-GetSubscriberDetail</Name>
+                </Step>
+                <Step>
+                    <Name>JS-GetOntvalue</Name>
+                </Step>
+                <Step>
+                    <Condition>(ontSerial != ontSerialValue)</Condition>
+                    <Name>RF-ValidateONT</Name>
+                </Step>
+                <Step>
+                    <Name>SC-GetDiagnostics</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-SetDiagnosticsResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/get-diagnostics") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="AutoCompensation">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-AutoCompensation-ValidateRequest</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-AutoCompensation-Set200</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/auto-comp") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="NetworkOutage">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-NetworkOutage-ValidateRequest</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/0.0/outage-update") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="ProvideServiceOrder_v1">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>OAS-ProvideServiceOrder_v2</Name>
+                </Step>
+                <Step>
+                    <Name>JS-ProvideServiceOrder-ReqErrorHandling</Name>
+                </Step>
+                <Step>
+                    <Name>RF-ProvideServiceOrder-422InvalidRequest</Name>
+                    <Condition>(errMsg != "")</Condition>
+                </Step>
+                <Step>
+                    <Name>SC-SupernovaIntegrationV2</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-IntegrationResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/1.0/service-orders") and (request.verb = "POST") and (varOrderType == "NEW")</Condition>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <PostClientFlow>
+        <Request/>
+        <Response>
+            <Step>
+                <Name>FC-Custom-Logger</Name>
+                <Condition>propertyset.API_Config.Supernova_debugLog = true</Condition>
+            </Step>
+        </Response>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/test/supernova/v2</BasePath>
+    </HTTPProxyConnection>
+    <RouteRule name="noroute">
+        <Condition>((proxy.pathsuffix MatchesPath "/0.0/service-availability") and (request.verb = "GET"))
+                or ((proxy.pathsuffix MatchesPath "/0.0/service-order-amendments") and (request.verb = "POST") and (req.appointmentReservationReference != null))
+                or ((proxy.pathsuffix MatchesPath "/0.0/service-orders") and (request.verb = "POST") and (varOrderType == "NEW"))
+                or ((proxy.pathsuffix MatchesPath "/1.0/service-orders") and (request.verb = "POST") and (varOrderType == "NEW"))
+                or ((proxy.pathsuffix MatchesPath "/0.0/get-diagnostics") and (request.verb = "POST"))
+                or ((proxy.pathsuffix MatchesPath "/0.0/auto-comp") and (request.verb = "POST"))
+        </Condition>
+    </RouteRule>
+    <RouteRule name="GetAppointment">
+        <TargetEndpoint>GetAppointment</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "/0.0/available-appointments")</Condition>
+    </RouteRule>
+    <RouteRule name="ReserveAppointment">
+        <TargetEndpoint>ReserveAppointment</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "/0.0/appointments") and (request.verb = "POST")</Condition>
+    </RouteRule>
+    <RouteRule name="ModifyServiceOrder">
+        <TargetEndpoint>ModifyServiceOrder</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-orders") and (request.verb = "POST") and (varOrderType=="MODIFY")</Condition>
+    </RouteRule>
+    <RouteRule name="CeaseServiceOrder">
+        <TargetEndpoint>CeaseServiceOrder</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-orders") and (request.verb = "POST") and (varOrderType=="CEASE")</Condition>
+    </RouteRule>
+    <RouteRule name="CeaseAmendOrder">
+        <TargetEndpoint>CeaseAmendOrder</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-order-amendments") and (request.verb = "POST") and (req.appointmentReservationReference == null)</Condition>
+    </RouteRule>
+    <RouteRule name="CancelOrder">
+        <TargetEndpoint>CancelOrder</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "/0.0/service-order-cancellations") and (request.verb = "POST")</Condition>
+    </RouteRule>
+    <RouteRule name="NetworkOutage">
+        <TargetEndpoint>NetworkOutage</TargetEndpoint>
+        <Condition>(proxy.pathsuffix MatchesPath "/0.0/outage-update") and (request.verb = "POST")</Condition>
+    </RouteRule>
+</ProxyEndpoint>

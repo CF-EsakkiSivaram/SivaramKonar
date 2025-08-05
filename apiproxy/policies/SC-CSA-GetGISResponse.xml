@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceCallout continueOnError="false" enabled="true" name="SC-CSA-GetGISResponse">
+  <DisplayName>SC-CSA-GetGISResponse</DisplayName>
+  <Properties/>
+  <!-- <Request clearPayload="true" variable="myRequest"> -->
+  <Request variable="targetRequest1">
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <Set>
+      <Headers>
+        <Header name="content-type">application/json</Header>
+        <Header name="Authorization">Bearer {clientreq.beareroauthtoken}</Header>
+      </Headers>
+      <QueryParams>
+        <QueryParam name="uprn">{req.uprn}</QueryParam>
+      </QueryParams>
+      <Verb>GET</Verb>
+    </Set>
+  </Request>
+  <Response>targetResponse1</Response>
+  <LocalTargetConnection>
+    <Path>/test/uni1/v1/0.0/premise-address</Path>
+  </LocalTargetConnection>
+</ServiceCallout>

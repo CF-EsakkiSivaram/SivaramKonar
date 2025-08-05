@@ -1,0 +1,441 @@
+openapi: 3.0.0
+info:
+  title: Supernova-CreateOrder-Provide API
+  version: 'v1'
+servers:
+  - url: https://dev.api.communityfibre.co.uk/dev/supernova/v1
+  
+paths:
+  /0.0/service-orders:
+     description: Create an order for new service(s).
+     post:
+      description: Create an order for new service(s).
+      tags:
+      - ServiceOrder
+      security:
+        - bearerAuth: []
+      parameters:
+          - in: header
+            name: X-Conversation-ID
+            schema:
+             type: string
+             example: '1235klkr'
+            required: true
+          - in: header
+            name: X-Request-ID
+            schema:
+             type: string
+             example: 'abchddeef'
+            required: true
+          - in: header
+            name: Tenant
+            schema:
+             type: string
+             example: 'TENANT1'
+            required: true
+
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              - orderType
+              - tenant
+              - address
+              - serviceOrderItem
+              - primaryContact
+              - appointmentReservationReference
+              properties:
+                  id:
+                    type: string
+                    example: "VF-123"
+                  orderType:
+                    type: string
+                    enum:
+                      - NEW
+                    example: 'NEW'
+                  tenant:
+                    type: string
+                    minLength: 1
+                    maxLength: 50
+                    example: 'TENANT1'
+                  address:
+                    type: object
+                    required:
+                    - id
+                    - type
+                    properties:
+                      id:
+                        type: string
+                        minLength: 1
+                        maxLength: 12
+                        example: '6704977'
+                      type:
+                        type: string
+                        enum:
+                          - UPRN
+                        example: 'UPRN'
+                  serviceOrderItem:
+                    type: object
+                    required:
+                    - serviceSpecification
+                    - serviceCharacteristics
+                    properties:
+                      serviceSpecification:
+                         type: object
+                         required:
+                         - id
+                         properties:
+                            id:
+                              type: string
+                              minLength: 1
+                              maxLength: 50
+                              enum:
+                                - ftthl2r
+                              example: "ftthl2r"
+                      serviceCharacteristics:
+                        type: array
+                        minItems: 1
+                        items:
+                          type: object
+                          required:
+                          - name
+                          - value
+                          properties:
+                            name:
+                              type: string
+                              enum:
+                                - LINE_PROFILE
+                                - AUTHENTICATION_AGENT
+                                - REMOTE_ID
+                                - RETAILER_ID
+                                - MINIMUM_SPEED
+                                - END_USER_TYPE
+                                - CONTRACT_TERM
+                                - ECC_CHARGEBAND
+                                - TRC_CHARGEBAND
+                                - CARE_LEVEL
+                                - ADDITIONAL_ADDRESS_ID
+                                - STATIC_IP_REQUESTED
+                                - DN_PORT_NUMBER
+                                - DN_PORT_DATETIME
+                                - SERVICE_ID
+                                - ENNI_ID
+                                - SERVICE_VLAN_ID
+                                - CUSTOMER_VLAN_ID
+                                - CABLE_LINK_ID
+                                - CIRCUIT_REFERENCE
+                                - SITE_NAME
+                                - SITE_LOCATION
+                                - ONT_REFERENCE
+                                - ONT_SERIAL_NUMBER
+                                - ONT_PORT
+                                - ONT_MANUFACTURER
+                                - ONT_FLOOR
+                                - ONT_ROOM
+                                - ONT_POSITION
+                                - LINE_ID
+                              example: 'ENNI_ID'
+                            value:
+                              type: string
+                              example: 1
+                  primaryContact:
+                    type: object
+                    required:
+                    - name
+                    - phoneNumber
+                    properties:
+                        name:
+                          type: string
+                          minLength: 1
+                          maxLength: 100
+                          example: 'John Smith'
+                        email:
+                          type: string
+                          example: 'john@smith.com'
+                        phoneNumber:
+                          type: string
+                          pattern: '\+?[\d\s\-#]{8,50}'
+                          example: 01234567890
+                  secondaryContact:
+                    type: object
+                    properties:
+                        name:
+                          type: string
+                          minLength: 1
+                          maxLength: 100
+                          example: 'John Smith'
+                        email:
+                          type: string
+                          example: 'john@smith.com'
+                        phoneNumber:
+                          type: string
+                          pattern: '\+?[\d\s\-#]{8,50}'
+                          example: 01234 567890
+                        
+                  appointmentReservationId:
+                    type: integer
+                    minimum: 1
+                    example: 234
+                  appointmentReservationReference:
+                    type: string
+                    minLength: 1
+                    maxLength: 50
+                    example: '77ARRYESL5'
+                  requestedCompletionDate:
+                    type: string
+                    format: date
+                    example: '2022-01-10'
+                  engineerTasks:
+                    type: array
+                    items:
+                        type: string
+                        pattern: ^[A-Z_]{5,25}
+                        example: 'TEST_SINGLE_DEVICE'
+                  hazards:
+                    type: string
+                    minLength: 1
+                    maxLength: 1000
+                    example: 'Hazardous materials stored on site'
+                  onSiteRestrictions:
+                    type: string
+                    minLength: 1
+                    maxLength: 1000
+                    example: 'Restricted access' 
+                  notes:
+                    type: string
+                    minLength: 1
+                    maxLength: 1000
+                    example: 'Lorem ipsum dolor sit amet...'
+            example:
+              id: "VF-123"
+              orderType: 'NEW'
+              tenant: 'TENANT1'
+              address:
+                id: '6704977'
+                type: 'UPRN'
+              serviceOrderItem:
+                serviceSpecification:
+                  id: 'ftthl2r'
+                serviceCharacteristics:
+                  - name: 'ENNI_ID'
+                    value: '1'
+              primaryContact:
+                  name: 'John Smith'
+                  email: 'john@smith.com'
+                  phoneNumber: '01234 567890'
+              secondaryContact:
+                  name: 'John Smith'
+                  email: 'john@smith.com'
+                  phoneNumber: '01234 567890'
+              appointmentReservationId: 234
+              appointmentReservationReference: '77ARRYESL5'
+              requestedCompletionDate: '2022-01-10'
+              engineerTasks: ['TEST_SINGLE_DEVICE']
+              hazards: 'Hazardous materials stored on site'
+              onSiteRestrictions: 'Restricted access'
+              notes: 'Lorem ipsum dolor sit amet...'
+
+
+      responses:
+        201:
+          description: Successully fetched the response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    id:
+                      type: string
+                      example: "VF-123"
+                    orderType:
+                      type: string
+                      example: NEW
+                    tenant:
+                      type: string
+                      example: TENANT1
+                    supplierReference:
+                      type: string
+                      example: O10577643
+                    status:
+                      type: string
+                      example: PENDING_CANCELLATION
+                    address:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 6704977
+                        type:
+                          type: string
+                          example: UPRN
+                    serviceOrderItem:
+                      type: object
+                      properties:
+                        serviceSpecification:
+                           type: object
+                           properties:
+                              id:
+                                type: string
+                                example: 110
+                        serviceCharacteristics:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                               name:
+                                 type: string
+                                 example: ENNI_ID
+                               value:
+                                 type: string
+                                 example: 1
+                    primaryContact:
+                      type: object
+                      properties:
+                          name:
+                            type: string
+                            example: 'John Smith'
+                          email:
+                            type: string
+                            example: john@smith.com
+                          phoneNumber:
+                            type: string
+                            example: 01234 567890
+                    
+                    appointmentReservationReference:
+                      type: string
+                      example: 77ARRYESL5
+              example:
+                id: "VF-123"
+                orderType: 'NEW'
+                tenant: 'TENANT1'
+                supplierReference: 'O10577643'
+                status: 'PENDING_CANCELLATION'
+                address:
+                  id: '6704977'
+                  type: 'UPRN'
+                serviceOrderItem:
+                  serviceSpecification:
+                    id: '110'
+                  serviceCharacteristics:
+                    - name: 'ENNI_ID'
+                      value: '1'
+                primaryContact:
+                  name: 'John Smith'
+                  email: 'john@smith.com'
+                  phoneNumber: '01234 567890'
+                appointmentReservationReference: '77ARRYESL5'
+
+
+        400:                        
+          description: MALFORMED_REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+                  code:
+                    type: string
+                    example: "MALFORMED_REQUEST"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Problem parsing request parameters - missing mandatory parameter(s)"
+              example:
+                uuid: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+                code: "MALFORMED_REQUEST"
+                messages:
+                    - "Problem parsing request parameters - missing mandatory parameter(s)"
+
+
+        401:  
+          description: NOT_AUTHORISED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+                  code:
+                    type: string
+                    example: "NOT_AUTHORISED"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Not authorised to use this endpoint"
+              example:
+                uuid: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+                code: "NOT_AUTHORISED"
+                messages:
+                    - "Not authorised to use this endpoint"
+
+
+        422:                        
+          description: INVALID_REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "c312ebdc-589f-4dc9-8f47-48e4a6e6b4df"
+                  code:
+                    type: string
+                    example: "INVALID_REQUEST"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Amend Order request InValid"
+              example:
+                uuid: "c312ebdc-589f-4dc9-8f47-48e4a6e6b4df"
+                code: "INVALID_REQUEST"
+                messages:
+                    - "Amend Order request InValid"
+
+
+        500:  
+          description: SUPPLIER_FAULT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+                  code:
+                    type: string
+                    example: "SUPPLIER_FAULT"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "An unexpected system error occurred"
+              example:
+                uuid: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+                code: "SUPPLIER_FAULT"
+                messages:
+                    - "An unexpected system error occurred"     
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      description: |
+        The Apigee Gateway can support a number of different authentication mechanisms e.g. JWT bearer tokens
+      type: http
+      scheme: bearer
+      bearerFormat: JWT                    

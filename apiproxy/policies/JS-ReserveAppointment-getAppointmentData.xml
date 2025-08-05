@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript continueOnError="false" enabled="true" timeLimit="200" name="JS-ReserveAppointment-getAppointmentData">
+  <DisplayName>JS-ReserveAppointment-getAppointmentData</DisplayName>
+  <Properties/>
+  <ResourceURL>jsc://getReserveAppointments.js</ResourceURL>
+</Javascript>

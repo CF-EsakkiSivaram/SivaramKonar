@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout continueOnError="false" enabled="true" name="SC-GetSubscriberDetail">
+    <DisplayName>SC-GetSubscriberDetail</DisplayName>
+    <Properties/>
+    <Request clearPayload="true" variable="targetRequest1">
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+        <Set>
+            <Headers>
+                <Header name="content-type">application/json</Header>
+                <Header name="Authorization">Bearer {clientreq.beareroauthtoken}</Header>
+            </Headers>
+            <Payload>
+               {
+                    "interactionID": "{createUuid()}",
+                    "interactionDate": "{interactionDate}",
+                    "triggeredBy": "CFL",
+                    "channel": "CSA",
+                    "searchParams": {
+                        "Attribute": {
+                            "attributeName": "subscriberId",
+                            "attributeId": "subscriberId",
+                            "attributeValue": "{subscriberId}"
+                        }
+                    }
+                }
+            </Payload>
+            <Verb>POST</Verb>
+        </Set>
+    </Request>
+    <Response>targetResponse1</Response>
+    <LocalTargetConnection>
+        <Path>/dev/subscriber/v1/0.0/get</Path>
+    </LocalTargetConnection>
+</ServiceCallout>

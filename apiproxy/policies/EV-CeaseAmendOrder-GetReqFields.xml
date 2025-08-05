@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-CeaseAmendOrder-GetReqFields">
+  <DisplayName>EV-CeaseAmendOrder-GetReqFields</DisplayName>
+  <Properties/>
+  <Header name="X-Request-ID">
+    <Pattern>{Request_ID}</Pattern>
+  </Header>
+  <Header name="X-Conversation-ID">
+    <Pattern>{Conversation_ID}</Pattern>
+  </Header>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <JSONPayload>
+    <Variable name="id">
+      <JSONPath>$.id</JSONPath>
+    </Variable>
+    <Variable name="orderId">
+      <JSONPath>$.orderId</JSONPath>
+    </Variable>
+    <Variable name="requestedCompletionDate">
+      <JSONPath>$.requestedCompletionDate</JSONPath>
+    </Variable>
+  </JSONPayload>
+  <Source clearPayload="false">request</Source>
+  <VariablePrefix>req</VariablePrefix>
+</ExtractVariables>

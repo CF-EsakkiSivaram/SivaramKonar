@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LookupCache continueOnError="false" enabled="true" name="LC-GetAppointment-GISResponse">
+  <DisplayName>LC-GetAppointment-GISResponse</DisplayName>
+  <Properties/>
+  <CacheKey>
+    <Prefix>GISRes</Prefix>
+    <KeyFragment ref="uprn"/>
+    <KeyFragment>response</KeyFragment>
+  </CacheKey>
+  <CacheResource>GisRes_PC_Response</CacheResource>
+  <AssignTo>lookupGISRes</AssignTo>
+</LookupCache>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="true" enabled="true" name="EV-GetAppointment-addressId">
+  <DisplayName>EV-GetAppointment-addressId</DisplayName>
+  <Properties/>
+  <JSONPayload>
+    <Variable name="uprn">
+      <JSONPath>$.id</JSONPath>
+    </Variable>
+    <Variable name="addressType">
+      <JSONPath>$.type</JSONPath>
+    </Variable>
+  </JSONPayload>
+  <Source clearPayload="false">request.queryparam.address</Source>
+</ExtractVariables>

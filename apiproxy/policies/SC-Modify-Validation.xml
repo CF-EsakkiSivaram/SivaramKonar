@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceCallout continueOnError="false" enabled="true" name="SC-Modify-Validation">
+  <DisplayName>SC-Modify-Validation</DisplayName>
+  <Properties/>
+  <Request clearPayload="true" variable="targetRequest1">
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <Set>
+      <Headers>
+        <!--<Header name="Authorization">Bearer {clientreq.beareroauthtoken}</Header>-->
+        <Header name="Content-Type">application/json</Header>
+        <Header name="userID">CFLHOBS</Header>
+        <Header name="opID">CFL</Header>
+        <Header name="buID">DEFAULT</Header>
+      </Headers>
+      <Payload contentType="application/json">
+    		   {
+                    "subscriberId": "{serviceId}",
+                    "orderType":"CHANGE"
+                }
+		    </Payload>
+    </Set>
+  </Request>
+  <Response>targetResponse1</Response>
+  <HTTPTargetConnection>
+    <URL>https://ec2-18-170-114-164.eu-west-2.compute.amazonaws.com/hobsrestgateway/omvalidationservice/validateModify</URL>
+  </HTTPTargetConnection>
+</ServiceCallout>

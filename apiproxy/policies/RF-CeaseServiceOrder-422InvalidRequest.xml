@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault continueOnError="false" enabled="true" name="RF-CeaseServiceOrder-422InvalidRequest">
+  <DisplayName>RF-CeaseServiceOrder-422InvalidRequest</DisplayName>
+  <Properties/>
+  <FaultResponse>
+    <AssignVariable>
+      <Name>errMsg</Name>
+      <Template>["{errMsg}"]</Template>
+    </AssignVariable>
+    <AssignVariable>
+      <Name>errCode</Name>
+      <Value>UNPROCESSABLE_ENTITY</Value>
+    </AssignVariable>
+    <Set>
+      <StatusCode>422</StatusCode>
+    </Set>
+  </FaultResponse>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

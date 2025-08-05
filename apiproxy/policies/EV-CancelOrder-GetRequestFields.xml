@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-CancelOrder-GetRequestFields">
+  <DisplayName>EV-CancelOrder-GetRequestFields</DisplayName>
+  <Properties/>
+  <Header name="X-Request-ID">
+    <Pattern>{Request_ID}</Pattern>
+  </Header>
+  <Header name="X-Conversation-ID">
+    <Pattern>{Conversation_ID}</Pattern>
+  </Header>
+  <JSONPayload>
+    <Variable name="id">
+      <JSONPath>$.id</JSONPath>
+    </Variable>
+    <Variable name="orderId">
+      <JSONPath>$.orderId</JSONPath>
+    </Variable>
+    <Variable name="reasonCode">
+      <JSONPath>$.reasonCode</JSONPath>
+    </Variable>
+  </JSONPayload>
+  <Source clearPayload="false">request</Source>
+  <VariablePrefix>req</VariablePrefix>
+</ExtractVariables>

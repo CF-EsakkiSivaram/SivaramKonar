@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceCallout continueOnError="false" enabled="true" name="SC-ProvideAmendOrder-HobsValidateOrder">
+  <DisplayName>SC-ProvideAmendOrder-HobsValidateOrder</DisplayName>
+  <Properties/>
+  <Request clearPayload="true" variable="targetRequest1">
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <Set>
+      <Headers>
+        <Header name="opID">CFL</Header>
+        <Header name="buID">DEFAULT</Header>
+        <Header name="userID">CFLHOBS</Header>
+        <Header name="Content-Type">application/json</Header>
+        <Header name="Authorization">Basic {propertyset.API_Config.hobs_token}</Header>
+      </Headers>
+      <Payload contentType="application/json">
+                {
+                    "externalOrderId": "{req.orderId}",
+                    "orderType":"CANCEL",
+                    "reasonCode": "CUSTOMER_CHANGED_MIND"
+                }            
+            </Payload>
+    </Set>
+  </Request>
+  <Response>targetResponse1</Response>
+  <HTTPTargetConnection>
+    <Properties/>
+    <URL>https://ec2-18-170-114-164.eu-west-2.compute.amazonaws.com/hobsrestgateway/omvalidationservice/validateCancel</URL>
+  </HTTPTargetConnection>
+</ServiceCallout>

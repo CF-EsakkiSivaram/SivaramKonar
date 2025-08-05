@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault continueOnError="false" enabled="true" name="RF-GetAppointment-MissingFields">
+  <DisplayName>RF-GetAppointment-MissingFields</DisplayName>
+  <Properties/>
+  <FaultResponse>
+    <Set>
+      <StatusCode>400</StatusCode>
+    </Set>
+  </FaultResponse>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

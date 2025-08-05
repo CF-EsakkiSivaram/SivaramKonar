@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-CeaseServiceOrder-SetTargetRequest">
+  <DisplayName>AM-CeaseServiceOrder-SetTargetRequest</DisplayName>
+  <Set>
+    <Headers>
+      <Header name="opID">CFL</Header>
+      <Header name="buID">DEFAULT</Header>
+      <Header name="userID">CFLHOBS</Header>
+      <Header name="Authorization">Basic {propertyset.API_Config.hobs_token}</Header>
+    </Headers>
+    <Payload contentType="application/json">
+		    {
+                "interactionID": "{createUuid()}",
+                "interactionDate": "{interactionDate}",
+                "sourceApplicationID": "CFL",
+                "serviceName": "TerminateOrder",
+                "triggeredBy": "CFL",
+                "channel": "ONL",
+                "opID": "CFL",
+                "buID": "DEFAULT",
+                "order": {
+                    "orderHeader": {
+                        "externalOrderID": "{req.id}",
+                        "orderType": "CEASE",
+                        "partnerID": "vfwholesale",
+                        "reasonCode": "RC188",
+                        "customerRequestedDate": "{req.requestedCompletionDate}",
+                        "capturedOn": "{interactionDate}",
+                        "orderParameters": {
+                            "attribute": [
+                                {
+                                    "attributeName": "SUPPRESS_PLATFORM",
+                                    "attributeValue": "BILLING"
+                                }
+                            ]
+                        }
+                    },
+                    "orderLines": [
+                        {
+                            "orderLineActionCommand": "CEASE",
+                            "subscriberOrderItem": {
+                                "subscriber": {
+                                    "customerAccountID": "{req_CustomerAccountID}",
+                                    "customerId": "{req_CustomerId}",
+                                    "subscriberID": "{req.subscriberId}"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+		 </Payload>
+    <Verb>POST</Verb>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="request"/>
+</AssignMessage>

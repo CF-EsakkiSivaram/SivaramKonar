@@ -1,0 +1,406 @@
+openapi: 3.0.0
+ 
+info:
+ 
+  title: Supernova-ModifyServiceOrder API
+ 
+  version: 'v1'
+ 
+servers:
+ 
+  - url: https://dev.api.communityfibre.co.uk/dev/supernova/v1
+ 
+paths:
+ 
+  /0.0/service-orders:
+    description: Modify an order for new services.
+    post:
+      description: Modify an order for new services.
+      tags:
+      - ServiceOrder
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: X-Conversation-ID
+          schema:
+            type: string
+            example: '1235klkr'
+          required: true
+        - in: header
+          name: X-Request-ID
+          schema:
+            type: string
+            example: 'abchddeef'
+          required: true
+        - in: header
+          name: Tenant
+          schema:
+            type: string
+            example: 'TENANT1'
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - orderType
+                - tenant
+                - serviceId
+                - serviceCharacteristics
+                - requestedCompletionDate
+              properties:
+                id:
+                  type: string
+                  example: "123"
+                orderType:
+                  type: string
+                  enum:
+                    - MODIFY
+                  example: "MODIFY"
+                tenant:
+                  type: string
+                  example: "VODAFONE"
+                serviceId:
+                  type: string
+                  example: "S99354825"
+                serviceCharacteristics:
+                  type: array
+                  minItems: 1
+                  items:
+                    oneOf:
+                      - type: object
+                        properties:
+                          name:
+                            type: string
+                            enum: ["LINE_PROFILE"]
+                          value:
+                            type: string
+                            enum:
+                              - "90_90"
+                              - "160_160"
+                              - "550_550"
+                              - "1000_1000"
+                              - "1800_1800"
+                              - "2500_2500"
+                        required: [name, value]
+                      - type: object
+                        properties:
+                          name:
+                            type: string
+                            enum:
+                              - "SERVICE_VLAN_ID"
+                              - "CUSTOMER_VLAN_ID"
+                              - "REMOTE_ID"
+                              - "ENNI_ID"
+                              - "ONT_SERIAL_NUMBER"
+                          value:
+                            type: string
+                        required: [name, value]
+                requestedCompletionDate:
+                  type: string
+                  format: date-time
+                  example: "2022-01-10T09:00:00.000Z"
+            example:
+              id: "123"
+              orderType: "MODIFY"
+              tenant: "VODAFONE"
+              serviceId: "S99354825"
+              serviceCharacteristics:
+                - name: "LINE_PROFILE"
+                  value: "1000_1000"
+                - name: "SERVICE_VLAN_ID"
+                  value: "10723563"
+                - name: "CUSTOMER_VLAN_ID"
+                  value: "47836743"
+                - name: "REMOTE_ID"
+                  value: "1234"
+                - name: "ENNI_ID"
+                  value: "enn1234"
+                - name: "ONT_SERIAL_NUMBER"
+                  value: "ONT1234"  
+              requestedCompletionDate: "2022-01-10T09:00:00.000Z"
+      responses:
+        '200':
+          description: Order successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "IN_PROGRESS"
+                  supplierReference:
+                    type: string
+                    example: "A123X"
+                  committedDate:
+                    type: string
+                    format: date-time
+ 
+                    example: "2022-01-10T09:00:00.000Z"
+ 
+                  targetDate:
+ 
+                    type: string
+ 
+                    format: date-time
+ 
+                    example: "2022-01-10T09:00:00.000Z"
+ 
+                  id:
+ 
+                    type: string
+ 
+                    example: "VF-1234"
+ 
+                  orderType:
+ 
+                    type: string
+ 
+                    example: "MODIFY"
+ 
+                  tenant:
+ 
+                    type: string
+ 
+                    example: "TENANT1"
+ 
+                  serviceId:
+ 
+                    type: string
+ 
+                    example: "SI12345"
+ 
+                  serviceCharacteristics:
+ 
+                    type: array
+ 
+                    items:
+ 
+                      type: object
+ 
+                      properties:
+ 
+                        name:
+ 
+                          type: string
+ 
+                          example: "LINE_PROFILE"
+ 
+                        value:
+ 
+                          type: string
+ 
+                          example: "1000_1000"
+ 
+                  requestedCompletionDate:
+ 
+                    type: string
+ 
+                    format: date-time
+ 
+                    example: "2022-01-10T09:00:00.000Z"
+ 
+              example:
+ 
+                status: "IN_PROGRESS"
+ 
+                supplierReference: "A123X"
+ 
+                committedDate: "2022-01-10T09:00:00.000Z"
+ 
+                targetDate: "2022-01-10T09:00:00.000Z"
+ 
+                id: "VF-1234"
+ 
+                orderType: "MODIFY"
+ 
+                tenant: "TENANT1"
+ 
+                serviceId: "SI12345"
+ 
+                serviceCharacteristics:
+ 
+                  - name: "LINE_PROFILE"
+ 
+                    value: "1000_1000"
+ 
+                  - name: "SERVICE_VLAN_ID"
+ 
+                    value: "10723563"
+ 
+                  - name: "CUSTOMER_VLAN_ID"
+ 
+                    value: "47836743"
+ 
+                  - name: "REMOTE_ID"
+ 
+                    value: "1234"
+ 
+                  - name: "ENNI_ID"
+ 
+                    value: "enn1234"
+ 
+                requestedCompletionDate: "2022-01-10T09:00:00.000Z"
+ 
+ 
+        '400':
+ 
+          description: MALFORMED_REQUEST
+ 
+          content:
+ 
+            application/json:
+ 
+              schema:
+ 
+                type: object
+ 
+                properties:
+ 
+                  uuid:
+ 
+                    type: string
+ 
+                    example: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+ 
+                  code:
+ 
+                    type: string
+ 
+                    example: "MALFORMED_REQUEST"
+ 
+                  messages:
+ 
+                    type: array
+ 
+                    items:
+ 
+                      type: string
+ 
+                      example: "Problem parsing request parameters - missing mandatory parameter(s)"
+ 
+              example:
+ 
+                uuid: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+ 
+                code: "MALFORMED_REQUEST"
+ 
+                messages:
+ 
+                  - "Problem parsing request parameters - missing mandatory parameter(s)"
+ 
+ 
+        '401':
+ 
+          description: NOT_AUTHORISED
+ 
+          content:
+ 
+            application/json:
+ 
+              schema:
+ 
+                type: object
+ 
+                properties:
+ 
+                  uuid:
+ 
+                    type: string
+ 
+                    example: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+ 
+                  code:
+ 
+                    type: string
+ 
+                    example: "NOT_AUTHORISED"
+ 
+                  messages:
+ 
+                    type: array
+ 
+                    items:
+ 
+                      type: string
+ 
+                      example: "Not authorised to use this endpoint"
+ 
+              example:
+ 
+                uuid: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+ 
+                code: "NOT_AUTHORISED"
+ 
+                messages:
+ 
+                  - "Not authorised to use this endpoint"
+ 
+ 
+        '500':
+ 
+          description: SUPPLIER_FAULT
+ 
+          content:
+ 
+            application/json:
+ 
+              schema:
+ 
+                type: object
+ 
+                properties:
+ 
+                  uuid:
+ 
+                    type: string
+ 
+                    example: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+ 
+                  code:
+ 
+                    type: string
+ 
+                    example: "SUPPLIER_FAULT"
+ 
+                  messages:
+ 
+                    type: array
+ 
+                    items:
+ 
+                      type: string
+ 
+                      example: "An unexpected system error occurred"
+ 
+              example:
+ 
+                uuid: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+ 
+                code: "SUPPLIER_FAULT"
+ 
+                messages:
+ 
+                  - "An unexpected system error occurred"
+ 
+ 
+components:
+ 
+  securitySchemes:
+ 
+    bearerAuth:
+ 
+      description: |
+ 
+        The Apigee Gateway can support a number of different authentication mechanisms e.g. JWT bearer tokens
+ 
+      type: http
+ 
+      scheme: bearer
+ 
+      bearerFormat: JWT

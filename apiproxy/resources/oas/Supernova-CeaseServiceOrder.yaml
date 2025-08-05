@@ -1,0 +1,233 @@
+openapi: 3.0.0
+info:
+  title: Supernova-CreateOrder-Cease API
+  version: 'v1'
+servers:
+  - url: https://dev.api.communityfibre.co.uk/dev/supernova/v1
+
+paths:
+  /0.0/service-orders:
+     description: Create an order to cease a service.
+     post:
+      description: Create an order to cease a service.
+      tags: 
+        - ServiceOrder
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: X-Request-ID
+          schema:
+            type: string
+            example: "avce"
+          required: true
+        - in: header
+          name: X-Conversation-ID
+          schema:
+            type: string
+            example: "1235urrjgn"
+          required: true        
+        - in: header
+          name: Tenant
+          schema:
+            type: string
+            example: "TENANT1"
+          required: true        
+        
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              - orderType
+              - tenant
+              - serviceId
+              - requestedCompletionDate
+              properties:
+                  id:
+                    type: string
+                    example: "VF-123"
+                  orderType:
+                    type: string
+                    enum:
+                      - CEASE
+                    example: "CEASE"
+                  tenant:
+                    type: string
+                    minLength: 1
+                    maxLength: 50
+                    example: "TENANT1"
+                  serviceId:
+                    type: string
+                    minLength: 1
+                    maxLength: 50
+                    example: "SI2345432345345"
+                  requestedCompletionDate:
+                    type: string
+                    format: date-time
+                    example: "2022-01-10T09:00:00.000Z"
+              example:
+                id: "VF-123"
+                orderType: "CEASE"
+                tenant: "TENANT1"
+                serviceId: "S99288056"
+                requestedCompletionDate: "2022-01-10T09:00:00.000Z"
+
+
+      responses:
+        201:
+          description: Successully fetched the response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "VF-123"
+                  orderType:
+                    type: string
+                    example: "CEASE"
+                  tenant:
+                    type: string
+                    example: "TENANT1"
+                  supplierReference:
+                    type: string
+                    example: "A123X"
+                  serviceId:
+                    type: string
+                    example: "SI2345432345345"
+                  requestedCompletionDate:
+                    type: string
+                    example: "2022-01-10T09:00:00.000Z"
+                  committedDate:
+                    type: string
+                    example: "2022-01-01T09:09:33.001Z"
+                  targetDate:
+                    type: string
+                    example: "2022-01-01T09:09:33.001Z"
+                  status:
+                    type: string
+                    example: "PENDING_CANCELLATION"
+              example:
+                id: "VF-123"
+                orderType: "CEASE"
+                tenant: "TENANT1"
+                supplierReference: "A123X"
+                serviceId: "SI2345432345345"
+                requestedCompletionDate: "2022-01-10T09:00:00.000Z"
+                committedDate: "2022-01-01T09:09:33.001Z"
+                targetDate: "2022-01-01T09:09:33.001Z"
+                status: "PENDING_CANCELLATION"
+
+
+        400:                        
+          description: MALFORMED_REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+                  code:
+                    type: string
+                    example: "MALFORMED_REQUEST"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Problem parsing request parameters - missing mandatory parameter(s)"
+              example:
+                uuid: "2b7e6837-0ec3-4ee9-acba-8250768c5ef9"
+                code: "MALFORMED_REQUEST"
+                messages:
+                    - "Problem parsing request parameters - missing mandatory parameter(s)"
+
+
+        401:  
+          description: NOT_AUTHORISED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+                  code:
+                    type: string
+                    example: "NOT_AUTHORISED"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Not authorised to use this endpoint"
+              example:
+                uuid: "1e7e7ebc-c797-4d60-a81c-940b40631957"
+                code: "NOT_AUTHORISED"
+                messages:
+                    - "Not authorised to use this endpoint"
+
+
+        422:                        
+          description: INVALID_REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "760053da-5785-4855-8c0a-e56bc749f4a6"
+                  code:
+                    type: string
+                    example: "INVALID_REQUEST"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "Invalid data was provided"
+              example:
+                uuid: "760053da-5785-4855-8c0a-e56bc749f4a6"
+                code: "INVALID_REQUEST"
+                messages:
+                    - "Invalid data was provided"
+
+
+        500:  
+          description: SUPPLIER_FAULT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+                  code:
+                    type: string
+                    example: "SUPPLIER_FAULT"
+                  messages:
+                    type: array
+                    items:
+                      type: string
+                      example: "An unexpected system error occurred"
+              example:
+                uuid: "43c871f3-18f4-46f8-9674-26ccd1dcee14"
+                code: "SUPPLIER_FAULT"
+                messages:
+                    - "An unexpected system error occurred"              
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      description: |
+        The Apigee Gateway can support a number of different authentication mechanisms e.g. JWT bearer tokens
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

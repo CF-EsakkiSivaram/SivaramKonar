@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-ModifyServiceOrder-GetHobsOrderId">
+  <DisplayName>EV-ModifyServiceOrder-GetHobsOrderId</DisplayName>
+  <Properties/>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <JSONPayload>
+    <Variable name="Hobs_OrderId">
+      <JSONPath>$.orderID</JSONPath>
+    </Variable>
+    <Variable name="statusCode">
+      <JSONPath>$.statusList[0].statusCode</JSONPath>
+    </Variable>
+  </JSONPayload>
+  <Source clearPayload="false">response</Source>
+</ExtractVariables>

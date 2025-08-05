@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-GetAppointment-GetVFFields">
+  <DisplayName>AM-GetAppointment-GetVFFields</DisplayName>
+  <Properties/>
+  <AssignVariable>
+    <Name>Request_ID</Name>
+    <Value/>
+    <Ref>request.header.X-Request-ID</Ref>
+  </AssignVariable>
+  <AssignVariable>
+    <Name>Conversation_ID</Name>
+    <Value/>
+    <Ref>request.header.X-Conversation-ID</Ref>
+  </AssignVariable>
+  <AssignVariable>
+    <Name>address</Name>
+    <Value/>
+    <Ref>request.queryparam.address</Ref>
+  </AssignVariable>
+  <AssignVariable>
+    <Name>serviceSpecification</Name>
+    <Value/>
+    <Ref>request.queryparam.serviceSpecification</Ref>
+  </AssignVariable>
+  <AssignVariable>
+    <Name>appointmentPurpose</Name>
+    <Value/>
+    <Ref>request.queryparam.appointmentPurpose</Ref>
+  </AssignVariable>
+  <AssignVariable>
+    <Name>Id</Name>
+    <Value/>
+    <Ref/>
+  </AssignVariable>
+  <AssignVariable>
+    <Name>endDate</Name>
+    <Value/>
+    <Ref/>
+  </AssignVariable>
+  <AssignVariable>
+    <Name>installationType</Name>
+    <Value/>
+    <Ref/>
+  </AssignVariable>
+  <AssignVariable>
+    <Name>region</Name>
+    <Value/>
+    <Ref/>
+  </AssignVariable>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

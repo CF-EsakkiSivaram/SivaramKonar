@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout continueOnError="false" enabled="true" name="FC-Custom-Error_Supernova">
+  <DisplayName>FC-Custom-Error_Supernova</DisplayName>
+  <FaultRules/>
+  <Properties/>
+  <SharedFlowBundle>SF-Custom-Errors_Supernova</SharedFlowBundle>
+</FlowCallout>

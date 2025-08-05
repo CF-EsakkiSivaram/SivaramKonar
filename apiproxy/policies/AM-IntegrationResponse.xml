@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-IntegrationResponse">
+  <DisplayName>AM-IntegrationResponse</DisplayName>
+  <Properties/>
+  <Copy source="targetResponse1">
+    <Headers>true</Headers>
+    <QueryParams>true</QueryParams>
+    <FormParams>true</FormParams>
+    <Payload>true</Payload>
+    <StatusCode>true</StatusCode>
+    <ReasonPhrase>true</ReasonPhrase>
+  </Copy>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="response"/>
+</AssignMessage>

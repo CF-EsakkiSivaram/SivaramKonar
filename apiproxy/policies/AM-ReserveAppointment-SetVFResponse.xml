@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-ReserveAppointment-SetVFResponse">
+  <DisplayName>AM-ReserveAppointment-SetVFResponse</DisplayName>
+  <Properties/>
+  <Set>
+    <Headers>
+      <Header name="X-Request-ID">{req.requestID}</Header>
+      <Header name="X-Conversation-ID">{req.Conversation_ID}</Header>
+      <Header name="Content-Type">application/json</Header>
+    </Headers>
+    <Payload contentType="application/json">
+            {"id": {req.id},"supplierReference": "{reservationId}","address": {req.address},"serviceSpecification": {req.serviceSpecification},"timeslot": {availableTimeslots}, "expiryDateTime": "{validity}"}
+        </Payload>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="response"/>
+</AssignMessage>

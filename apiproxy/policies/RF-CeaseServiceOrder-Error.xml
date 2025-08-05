@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault continueOnError="false" enabled="true" name="RF-CeaseServiceOrder-Error">
+  <DisplayName>RF-CeaseServiceOrder-Error</DisplayName>
+  <Properties/>
+  <FaultResponse>
+    <Copy source="targetResponse1">
+      <Headers/>
+    </Copy>
+    <Set>
+      <StatusCode>{targetResponse1.status.code}</StatusCode>
+      <Payload>{targetResponse1.content}</Payload>
+    </Set>
+  </FaultResponse>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

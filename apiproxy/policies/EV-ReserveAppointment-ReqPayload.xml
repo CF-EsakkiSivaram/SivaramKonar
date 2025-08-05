@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-ReserveAppointment-ReqPayload">
+  <DisplayName>EV-ReserveAppointment-ReqPayload</DisplayName>
+  <Properties/>
+  <Header name="X-Request-ID">
+    <Pattern>{requestID}</Pattern>
+  </Header>
+  <Header name="X-Conversation-ID">
+    <Pattern>{Conversation_ID}</Pattern>
+  </Header>
+  <JSONPayload>
+    <Variable name="id">
+      <JSONPath>$.id</JSONPath>
+    </Variable>
+    <Variable name="addressId">
+      <JSONPath>$.address.id</JSONPath>
+    </Variable>
+    <Variable name="address">
+      <JSONPath>$.address</JSONPath>
+    </Variable>
+    <Variable name="timeslot.timeslotStartDateTime">
+      <JSONPath>$.timeslot.timeslotStartDateTime</JSONPath>
+    </Variable>
+    <Variable name="broadbandProduct">
+      <JSONPath>$.serviceSpecification.id</JSONPath>
+    </Variable>
+    <Variable name="serviceSpecification">
+      <JSONPath>$.serviceSpecification</JSONPath>
+    </Variable>
+    <Variable name="appointmentPurpose">
+      <JSONPath>$.purpose</JSONPath>
+    </Variable>
+  </JSONPayload>
+  <Source clearPayload="false">request</Source>
+  <VariablePrefix>req</VariablePrefix>
+</ExtractVariables>

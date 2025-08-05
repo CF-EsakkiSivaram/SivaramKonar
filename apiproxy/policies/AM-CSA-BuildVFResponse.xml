@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-CSA-BuildVFResponse">
+  <DisplayName>AM-CSA-BuildVFResponse</DisplayName>
+  <Properties/>
+  <Set>
+    <Headers>
+      <Header name="X-Conversation-ID">{request.header.X-Conversation-ID}</Header>
+      <Header name="Access-Control-Allow-Origin">{request.header.origin}</Header>
+    </Headers>
+    <Payload contentType="application/json">
+        {
+          "address": {
+            "identifier": {
+              "id": "{gis.address_identifier_id}",
+              "type": "UPRN"
+            },
+            "locality": "{gis.address_locality}",
+            "postcode": "{gis.address_postcode}",
+            "country": "England"
+          },
+          "serviceSpecifications": [
+              {
+                "id": "ftthl2r",
+                "name": "FTTH"
+              }
+            ],
+          "serviceCharacteristics": [
+            {
+              "name": "LINE_PROFILE", 
+              "value": "90_90",
+              "appointmentRequired":true
+            },
+            {
+              "name": "LINE_PROFILE",
+              "value": "160_160",
+              "appointmentRequired":true
+            },
+            {
+              "name": "LINE_PROFILE",
+              "value": "550_550",
+              "appointmentRequired":true
+            },
+            {
+              "name": "LINE_PROFILE",
+              "value": "1000_1000",
+              "appointmentRequired":true
+            },
+            {
+              "name": "LINE_PROFILE",
+              "value": "1800_1800",
+              "appointmentRequired":true
+            },
+            {
+              "name": "LINE_PROFILE",
+              "value": "2500_2500",
+              "appointmentRequired":true
+            }
+          ]
+        }
+        </Payload>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="response"/>
+</AssignMessage>

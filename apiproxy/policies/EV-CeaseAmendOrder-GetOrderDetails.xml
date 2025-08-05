@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="true" enabled="true" name="EV-CeaseAmendOrder-GetOrderDetails">
+  <DisplayName>EV-CeaseAmendOrder-GetOrderDetails</DisplayName>
+  <Properties/>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <JSONPayload>
+    <Variable name="orderId">
+      <JSONPath>$.response.orderID</JSONPath>
+    </Variable>
+    <Variable name="status">
+      <JSONPath>$.status</JSONPath>
+    </Variable>
+  </JSONPayload>
+  <Source clearPayload="false">targetResponse1</Source>
+  <VariablePrefix>res</VariablePrefix>
+</ExtractVariables>

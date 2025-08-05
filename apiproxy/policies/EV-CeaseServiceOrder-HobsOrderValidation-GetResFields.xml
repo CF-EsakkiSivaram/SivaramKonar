@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-CeaseServiceOrder-HobsOrderValidation-GetResFields">
+  <DisplayName>EV-CeaseServiceOrder-HobsOrderValidation-GetResFields</DisplayName>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <JSONPayload>
+    <Variable name="req_CustomerAccountID">
+      <JSONPath>$.accountId</JSONPath>
+    </Variable>
+    <Variable name="req_CustomerId">
+      <JSONPath>$.customerId</JSONPath>
+    </Variable>
+    <Variable name="statusCode">
+      <JSONPath>$.statusList[0].statusCode</JSONPath>
+    </Variable>
+  </JSONPayload>
+  <Source clearPayload="false">targetResponse1</Source>
+</ExtractVariables>

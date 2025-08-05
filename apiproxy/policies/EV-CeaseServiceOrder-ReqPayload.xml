@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-CeaseServiceOrder-ReqPayload">
+  <DisplayName>EV-CeaseServiceOrder-ReqPayload</DisplayName>
+  <Properties/>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <Header name="X-Request-ID">
+    <Pattern>{requestID}</Pattern>
+  </Header>
+  <Header name="X-Conversation-ID">
+    <Pattern>{Conversation_ID}</Pattern>
+  </Header>
+  <Header name="Tenant">
+    <Pattern>{headerTenant}</Pattern>
+  </Header>
+  <JSONPayload>
+    <Variable name="id">
+      <JSONPath>$.id</JSONPath>
+    </Variable>
+    <Variable name="orderType">
+      <JSONPath>$.orderType</JSONPath>
+    </Variable>
+    <Variable name="tenant">
+      <JSONPath>$.tenant</JSONPath>
+    </Variable>
+    <Variable name="subscriberId">
+      <JSONPath>$.serviceId</JSONPath>
+    </Variable>
+    <Variable name="requestedCompletionDate">
+      <JSONPath>$.requestedCompletionDate</JSONPath>
+    </Variable>
+  </JSONPayload>
+  <Source clearPayload="false">request</Source>
+  <VariablePrefix>req</VariablePrefix>
+</ExtractVariables>

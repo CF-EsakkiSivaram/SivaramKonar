@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-GetAppointment-BuildZinierGetAppointmentReq">
+  <DisplayName>AM-GetAppointment-BuildZinierGetAppointmentReq</DisplayName>
+  <Properties/>
+  <Set>
+    <Headers>
+      <Header name="Authorization">Bearer {clientreq.beareroauthtoken}</Header>
+      <Header name="Content-Type">application/json</Header>
+    </Headers>
+    <Payload contentType="application/json">
+		    {
+                "data": [
+                    {
+                        "processId": "cflReturnAvailableAppointmentWindows",
+                        "apiResponseFormat": true,
+                        "contextVar": {
+                            "startDate": "{request.queryparam.appointmentFromDate}",
+                            "endDate": "{endDate}",
+                            "scheduleType": "{scheduleType}",
+                            "broadbandProduct": "{propertyset.API_Config.supernovaBroadbandProduct}",
+                            "serviceType": "Standard",
+                            "accountType": "Residential",
+                            "installationType": {installationType},
+                            "region": "{region}",
+                            "cflCustomerType": "vfwholesale"
+                        }
+                    }
+                ]
+            }
+        </Payload>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="request"/>
+</AssignMessage>

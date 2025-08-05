@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><TargetEndpoint name="CeaseAmendOrder">
+    <FaultRules/>
+    <DefaultFaultRule name="all">
+        <AlwaysEnforce>true</AlwaysEnforce>
+        <Step>
+            <Name>FC-Custom-TargetErrors_Supernova</Name>
+        </Step>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>AM-RemovePathSuffix</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <Flows/>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <HTTPTargetConnection>
+        <URL>https://ec2-18-170-114-164.eu-west-2.compute.amazonaws.com/hobsrestgateway/omvalidationservice/modifyTerminateDate</URL>
+    </HTTPTargetConnection>
+</TargetEndpoint>

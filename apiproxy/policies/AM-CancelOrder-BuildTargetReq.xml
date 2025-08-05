@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-CancelOrder-BuildTargetReq">
+  <DisplayName>AM-CancelOrder-BuildTargetReq</DisplayName>
+  <Properties/>
+  <Set>
+    <Headers>
+      <Header name="opID">CFL</Header>
+      <Header name="buID">DEFAULT</Header>
+      <Header name="userID">CFLHOBS</Header>
+      <Header name="Authorization">Basic {propertyset.API_Config.hobs_token}</Header>
+      <Header name="Content-Type">application/json</Header>
+    </Headers>
+    <Payload contentType="application/json">
+        {
+            "cancellationReason": "{req.reasonCode}",
+            "cancellationReasonDescription": "",
+            "channel": [
+                {
+                    "id": "CSA",
+                    "name": "CRM Application"
+                }
+            ],
+            "createdBy": "agent_001",
+            "orderDate": "{interactionDate}",
+            "requestedCancellationDate": "{interactionDate}",
+            "productOrder": {
+                "id": "{res.orderID}",
+                "externalRefID": "{req.orderId}"
+            }
+        }    
+        </Payload>
+    <Verb>POST</Verb>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="request"/>
+</AssignMessage>

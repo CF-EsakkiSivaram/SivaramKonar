@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceCallout continueOnError="false" enabled="true" name="SC-CSA-HOBSPremiseCheck">
+  <DisplayName>SC-CSA-HOBSPremiseCheck</DisplayName>
+  <Properties/>
+  <Request clearPayload="true" variable="targetRequest2">
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <Set>
+      <Headers>
+        <Header name="opID">CFL</Header>
+        <Header name="buID">DEFAULT</Header>
+        <Header name="userID">CFLHOBS</Header>
+        <Header name="Content-Type">application/json</Header>
+        <Header name="Authorization">Basic {propertyset.API_Config.hobs_token}</Header>
+      </Headers>
+      <Payload contentType="application/json">
+                {
+                      "sprn": "{gis.sprn}"
+                }            
+            </Payload>
+    </Set>
+  </Request>
+  <Response>targetResponse2</Response>
+  <HTTPTargetConnection>
+    <Properties/>
+    <URL>https://ec2-18-170-114-164.eu-west-2.compute.amazonaws.com/hobsrestgateway/omvalidationservice/checksprn</URL>
+  </HTTPTargetConnection>
+</ServiceCallout>

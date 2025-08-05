@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceCallout continueOnError="false" enabled="true" name="SC-ProvideAmendOrder-CreateWorkOrder">
+    <DisplayName>SC-ProvideAmendOrder-CreateWorkOrder</DisplayName>
+    <Properties/>
+    <Request variable="targetRequest4">
+        <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+        <Set>
+            <Headers>
+                <Header name="Authorization">Bearer {clientreq.beareroauthtoken}</Header>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json">
+    		    {
+                    "data": [
+                        {
+                            "eventId": "cflWOCreateAPI",
+                            "contextVar": {
+                                "scheduleType": "VFINSTALL",
+                                "accountType": "RESIDENTIAL",
+                                "broadbandProduct": "{propertyset.API_Config.supernovaBroadbandProduct}",
+                                "installationType": "{installationType}",
+                                "serviceType": "Standard",
+                                "reservationId": "{req.appointmentReservationReference}",
+                                "accountNumber": "{accountNumber}",
+                                "customerName": "{customerName}",
+                                "emailId": "{emailId}",
+                                "customerId": "{customerId}",
+                                "siteAddress": "{siteAddress}",
+                                "siteCity": "{siteCity}",
+                                "sitePostalCode": "{sitePostalCode}",
+                                "siteUPRN": "{siteUPRN}",
+                                "siteborough": "{siteborough}",
+                                "siteContactPersonPhone": "{siteContactPersonPhone}",
+                                "regionId": "{regionId}",
+                                "systemOfOrigen": "{systemOfOrigen}",
+                                "cflCustomerType": "vfwholesale",
+                                "oltIp": "{oltIp}",
+                                "oltDeviceName": "{oltDeviceName}",
+                                "externalOrderReference": "{req.orderId}"
+                            }
+                        }
+                    ]
+                }
+            </Payload>
+        </Set>
+    </Request>
+    <Response>targetResponse4</Response>
+    <LocalTargetConnection>
+        <Path>/test/zinier/workorder/create</Path>
+    </LocalTargetConnection>
+</ServiceCallout>

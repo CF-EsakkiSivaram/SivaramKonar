@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><ServiceCallout continueOnError="false" enabled="true" name="SC-ProvideAmendOrder-ZinierRescheduleAppointment">
+    <DisplayName>SC-ProvideAmendOrder-ZinierRescheduleAppointment</DisplayName>
+    <Properties/>
+    <Request variable="targetRequest3">
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+        <Set>
+            <Headers>
+                <Header name="content-type">application/json</Header>
+                <Header name="Authorization">Bearer {clientreq.beareroauthtoken}</Header>
+            </Headers>
+            <Payload>
+               {"data": [{"processId": "cflBookAppointment","apiResponseFormat": true,"contextVar": {"workOrderTaskId": "{workOrderTaskId}","reservationId": "{req.appointmentReservationReference}","action": "rescheduleBooking"}}]}
+            </Payload>
+            <Verb>POST</Verb>
+        </Set>
+    </Request>
+    <Response>targetResponse3</Response>
+    <LocalTargetConnection>
+        <Path>/test/zinier/appointment/reschedule</Path>
+    </LocalTargetConnection>
+</ServiceCallout>

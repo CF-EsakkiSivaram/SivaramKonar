@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout continueOnError="true" enabled="true" name="SC-GetDiagnostics">
+    <DisplayName>SC-GetDiagnostics</DisplayName>
+    <Properties/>
+    <Request clearPayload="true" variable="targetRequest2">
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+        <Set>
+            <Headers>
+                <Header name="content-type">application/json</Header>
+                <Header name="Authorization">Bearer {clientreq.beareroauthtoken}</Header>
+            </Headers>
+            <Verb>POST</Verb>
+            <Payload>{request.content}</Payload>
+        </Set>
+    </Request>
+    <Response>targetResponse2</Response>
+    <HTTPTargetConnection>
+        <Properties/>
+        <URL>https://test.api.communityfibre.co.uk/dev/network/v1/0.0/get-diagnostics</URL>
+    </HTTPTargetConnection>
+</ServiceCallout>

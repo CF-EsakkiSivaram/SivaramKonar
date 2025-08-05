@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><TargetEndpoint name="GetAppointment">
+  <DefaultFaultRule name="all">
+    <AlwaysEnforce>true</AlwaysEnforce>
+    <Step>
+      <Name>FC-Custom-TargetErrors_Supernova</Name>
+    </Step>
+  </DefaultFaultRule>
+  <PreFlow name="PreFlow">
+    <Request>
+      <Step>
+        <Name>AM-RemovePathSuffix</Name>
+      </Step>
+    </Request>
+    <Response>
+      <Step>
+        <Name>JS-GetAppointment-GetAppointmentData</Name>
+      </Step>
+      <Step>
+        <Name>RF-GetAppointment-422-ZinierErr</Name>
+        <Condition>(ZinierErrorMsg = true)</Condition>
+      </Step>
+      <Step>
+        <Name>AM-GetAppointment-SetVFResponse</Name>
+      </Step>
+    </Response>
+  </PreFlow>
+  <Flows/>
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response/>
+  </PostFlow>
+  <LocalTargetConnection>
+    <Path>/test/zinier/appointment/get</Path>
+  </LocalTargetConnection>
+</TargetEndpoint>

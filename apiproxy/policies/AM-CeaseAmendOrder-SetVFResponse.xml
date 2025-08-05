@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-CeaseAmendOrder-SetVFResponse">
+  <DisplayName>AM-CeaseAmendOrder-SetVFResponse</DisplayName>
+  <Properties/>
+  <Set>
+    <Headers>
+      <Header name="X-Request-ID">{req.Request_ID}</Header>
+      <Header name="X-Conversation-ID">{req.Conversation_ID}</Header>
+      <Header name="Content-Type">application/json</Header>
+    </Headers>
+    <Payload contentType="application/json">
+            {"id": "{req.id}","orderId": "{req.orderId}","requestedCompletionDate": "{req.requestedCompletionDate}"}
+        </Payload>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="response"/>
+</AssignMessage>

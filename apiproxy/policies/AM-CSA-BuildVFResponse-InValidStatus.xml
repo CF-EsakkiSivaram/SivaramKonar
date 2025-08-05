@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-CSA-BuildVFResponse-InValidStatus">
+  <DisplayName>AM-CSA-BuildVFResponse-InValidStatus</DisplayName>
+  <Properties/>
+  <Set>
+    <Headers>
+      <Header name="X-Conversation-ID">{request.header.X-Conversation-ID}</Header>
+      <Header name="Access-Control-Allow-Origin">{request.header.origin}</Header>
+    </Headers>
+    <Payload contentType="application/json">
+        {
+          "address": {
+            "identifier": {
+              "id": "{gis.address_identifier_id}",
+              "type": "UPRN"
+            },
+            "country": "England"
+          },
+          "serviceSpecifications": [
+            ],
+          "unavailabilityReasons": [
+            {
+              "code": "OTHER",
+              "text": "Service not available"
+            }
+          ]
+        }
+        </Payload>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="response"/>
+</AssignMessage>

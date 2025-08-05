@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault continueOnError="false" enabled="true" name="RF-ValidateONT">
+    <DisplayName>RF-ValidateONT</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <AssignVariable>
+            <Name>errMsg</Name>
+            <Template>["The ONT does not match the registered equipment. Please verify/update the device details and try again"]</Template>
+        </AssignVariable>
+        <AssignVariable>
+            <Name>errCode</Name>
+            <Value>NOT_AUTHORISED</Value>
+        </AssignVariable>
+        <Set>
+            <StatusCode>422</StatusCode>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

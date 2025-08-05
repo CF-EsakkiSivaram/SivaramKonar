@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-CeaseAmendOrder-SetTargetRequest">
+  <DisplayName>AM-CeaseAmendOrder-SetTargetRequest</DisplayName>
+  <Properties/>
+  <Set>
+    <Headers>
+      <Header name="Authorization">Basic {propertyset.API_Config.hobs_token}</Header>
+      <Header name="Content-Type">application/json</Header>
+    </Headers>
+    <Payload contentType="application/json">
+            {"ORDER_ID": "{res.orderId}","TERMINATE_DATE": "{req.requestedCompletionDate}"}
+        </Payload>
+    <Verb>POST</Verb>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignTo createNew="true" transport="http" type="request"/>
+</AssignMessage>
